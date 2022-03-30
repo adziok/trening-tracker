@@ -1,6 +1,6 @@
 {
   "name": "@trening-tracker/frontend",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@trening-tracker/shared": "^0.0.2",
+    "@trening-tracker/shared": "^0.0.3",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
