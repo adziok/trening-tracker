@@ -4,4 +4,5 @@ export type TestTypeFromShared = {
 
 export type HelloConventionalCommits = {
     name: string;
+    test: string;
 };
