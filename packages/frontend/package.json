@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "@trening-tracker/frontend",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -17,8 +17,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build:css": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
+    "dev": "npm run build:css && react-scripts start",
+    "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -41,5 +42,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@trening-tracker/shared": "^0.0.1",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "postcss-cli": "^9.1.0",
+    "tailwindcss": "^3.0.23"
   }
 }
