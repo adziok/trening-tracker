@@ -24,13 +24,13 @@ jobs:
         run: yarn
 
       - name: Run Formatting Checks
-        run: lerna run format --since main
+        run: lerna run format
 
       - name: Run Linters
-        run: lerna run lint --since main
+        run: lerna run lint
 
       - name: Run Build
-        run: lerna run build --since main
+        run: lerna run build
 
       - name: Run Tests
-        run: lerna run test --since main
+        run: lerna run test
