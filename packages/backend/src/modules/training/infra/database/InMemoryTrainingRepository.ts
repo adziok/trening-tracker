@@ -1,6 +1,6 @@
-import { TrainingRepository } from '../application/repositories/TrainingRepository';
-import { TrainingEntity, TTrainingEntityProps } from '../application/enitites/TrainingEntity';
-import { UniqueEntityId } from '../../../shared/classes';
+import { TrainingRepository } from '../../application/repositories/TrainingRepository';
+import { TrainingEntity, TTrainingEntityProps } from '../../application/enitites/TrainingEntity';
+import { UniqueEntityId } from '../../../../shared/classes';
 
 export class InMemoryTrainingRepository implements TrainingRepository {
     private data: Record<string, TTrainingEntityProps> = {};

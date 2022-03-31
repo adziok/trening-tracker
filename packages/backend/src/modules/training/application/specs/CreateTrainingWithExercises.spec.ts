@@ -1,9 +1,9 @@
 import { isUUID } from '@nestjs/common/utils/is-uuid';
 import { randomUUID } from 'crypto';
 import { TrainingService } from '../TrainingService';
-import { InMemoryTrainingRepository } from '../../infra/InMemoryTrainingRepository';
+import { InMemoryTrainingRepository } from '../../infra/database/InMemoryTrainingRepository';
 import { DateUtils } from '../../../../shared/classes/DateUtils';
-import { InMemoryExerciseRepository } from '../../infra/InMemoryExerciseRepository';
+import { InMemoryExerciseRepository } from '../../infra/database/InMemoryExerciseRepository';
 import { ExerciseService } from '../ExerciseService';
 
 describe('CreateTraining', () => {
