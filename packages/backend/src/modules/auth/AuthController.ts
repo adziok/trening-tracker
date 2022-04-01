@@ -1,20 +1,13 @@
-import { Body, Controller, Get, Post, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import axios from 'axios';
 import * as qs from 'qs';
 import { CognitoOauthStrategy } from './cognito/CognitoOauthStrategy';
 import { AuthConfigService } from './AuthConfigService';
-import { CognitoAccessTokenGuard } from './cognito/CognitoAccessTokenGuard';
 
 @Controller('auth')
 export class AuthController {
     constructor(private readonly config: AuthConfigService) {}
-
-    @UseGuards(CognitoAccessTokenGuard)
-    @Get('test')
-    test() {
-        return '??';
-    }
 
     @Get()
     auth(@Res() res: Response) {
