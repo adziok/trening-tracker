@@ -17,8 +17,11 @@ export class CognitoOauthController {
     @Get('redirect')
     @UseGuards(CognitoOauthGuard)
     cognitoAuthRedirect(@Req() req: Request, @Res() res: Response) {
-        console.log((res.req as any).user);
-        // return '';
-        res.redirect(this.configService.get('successCallbackUrl'));
+        const tokens = res.req.user as { accessToken: string; refreshToken: string };
+        res.redirect(
+            `${this.configService.get<string>('successCallbackUrl')}?accessToken=${tokens.accessToken}&refreshToken=${
+                tokens.refreshToken
+            }`
+        );
     }
 }

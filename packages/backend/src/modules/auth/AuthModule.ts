@@ -48,6 +48,7 @@ export class AuthModule {
                 },
                 {
                     provide: 'INJECTED_AUTH_CONFIG',
+                    // eslint-disable-next-line @typescript-eslint/unbound-method
                     useFactory: options.useFactory,
                     inject: options.inject,
                 },

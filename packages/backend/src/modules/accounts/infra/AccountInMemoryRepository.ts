@@ -13,7 +13,8 @@ export class AccountInMemoryRepository implements AccountRepository {
         return Promise.resolve(err(new Error('Account with given email not found')));
     }
 
-    findById(id: TAccountId): AsyncResult<Account> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    findById(_id: TAccountId): AsyncResult<Account> {
         return undefined;
     }
 

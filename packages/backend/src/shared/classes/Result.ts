@@ -34,7 +34,8 @@ export class ErrorResult<T, E> {
         return true;
     }
 
-    map<N>(cb: (value: T) => Result<N>): Result<T | N> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    map<N>(_cb: (value: T) => Result<N>): Result<T | N> {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return this;
