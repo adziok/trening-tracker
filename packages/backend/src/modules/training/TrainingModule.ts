@@ -5,6 +5,7 @@ import { ExerciseRepository } from './application/repositories/ExerciseRepositor
 import { InMemoryExerciseRepository } from './infra/database/InMemoryExerciseRepository';
 import { TrainingRepository } from './application/repositories/TrainingRepository';
 import { InMemoryTrainingRepository } from './infra/database/InMemoryTrainingRepository';
+import { TrainingFacade } from './TrainingFacade';
 
 @Module({
     providers: [
@@ -18,6 +19,8 @@ import { InMemoryTrainingRepository } from './infra/database/InMemoryTrainingRep
             provide: TrainingRepository,
             useClass: InMemoryTrainingRepository,
         },
+        TrainingFacade,
     ],
+    exports: [TrainingFacade],
 })
 export class TrainingModule {}
