@@ -1,28 +1,43 @@
 export class BaseError extends Error {}
 
 export type Result<T, E extends BaseError = BaseError> = OkResult<T, E> | ErrorResult<T, E>;
+export type AsyncResult<T> = Promise<Result<T>>;
 
 export class OkResult<T, E> {
-    public constructor(public readonly value: T) {}
+    constructor(public readonly value: T) {}
 
-    public isOk(): this is OkResult<T, E> {
+    isOk(): this is OkResult<T, E> {
         return true;
     }
 
-    public hasError(): this is ErrorResult<T, E> {
+    hasError(): this is ErrorResult<T, E> {
         return false;
+    }
+
+    map<N>(cb: (value: T) => Result<N>): Result<T | N> {
+        try {
+            return cb(this.value);
+        } catch (e) {
+            return err(e);
+        }
     }
 }
 
 export class ErrorResult<T, E> {
-    public constructor(public readonly error: E) {}
+    constructor(public readonly error: E) {}
 
-    public isOk(): this is OkResult<T, E> {
+    isOk(): this is OkResult<T, E> {
         return false;
     }
 
-    public hasError(): this is ErrorResult<T, E> {
+    hasError(): this is ErrorResult<T, E> {
         return true;
+    }
+
+    map<N>(cb: (value: T) => Result<N>): Result<T | N> {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return this;
     }
 }
 

@@ -7,4 +7,7 @@ module.exports = {
     '../../.eslintrc.js'
   ],
   ignorePatterns: ['dist'],
+  rules:{
+    "@typescript-eslint/no-unsafe-call": 0
+  }
 };
