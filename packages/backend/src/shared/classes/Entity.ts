@@ -4,9 +4,9 @@ const isEntity = (v: any): v is Entity<any> => {
     return v instanceof Entity;
 };
 
-export abstract class Entity<T> {
-    protected readonly _id: UniqueEntityId;
+export class Entity<T> {
     public readonly props: T;
+    protected readonly _id: UniqueEntityId;
 
     protected constructor(props: T, id: UniqueEntityId) {
         this._id = id;
@@ -15,6 +15,10 @@ export abstract class Entity<T> {
 
     get id(): UniqueEntityId {
         return this._id;
+    }
+
+    static createInstance() {
+        return new Entity({}, null);
     }
 
     public equals(object?: Entity<T>): boolean {

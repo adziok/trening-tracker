@@ -1,6 +1,4 @@
-import { Entity } from '../../../../shared/classes/Entity';
-import { ok, Result, UniqueEntityId } from '../../../../shared/classes';
-import { DateUtils } from '../../../../shared/classes/DateUtils';
+import { DateUtils, Entity, ok, Result, UniqueEntityId } from '../../../../shared/classes';
 
 export type TTrainingEntityProps = {
     accountId: UniqueEntityId;

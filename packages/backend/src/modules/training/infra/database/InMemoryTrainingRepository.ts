@@ -12,12 +12,10 @@ export class InMemoryTrainingRepository implements TrainingRepository {
     }
 
     getByIdAndAccountId(trainingId: UniqueEntityId, accountId: UniqueEntityId): Promise<TrainingEntity | null> {
-        return Promise.resolve(
-            (this.data[trainingId.toString()] &&
-                this.data[trainingId.toString()].accountId.equals(accountId) &&
-                TrainingEntity.recreate(this.data[trainingId.toString()], trainingId)) ||
-                null
-        );
+        if (this.data[trainingId.toString()] && this.data[trainingId.toString()].accountId.equals(accountId)) {
+            return Promise.resolve(TrainingEntity.recreate(this.data[trainingId.toString()], trainingId));
+        }
+        return Promise.resolve<null>(null);
     }
 
     save(entity: TrainingEntity): Promise<void> {
