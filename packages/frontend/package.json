@@ -12,13 +12,14 @@
     "@types/react-dom": "^17.0.14",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "build:css": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
-    "dev": "npm run build:css && react-scripts start",
+    "dev": "npm run build:css && export port=3001 && react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

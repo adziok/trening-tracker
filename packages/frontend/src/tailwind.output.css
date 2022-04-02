@@ -205,7 +205,7 @@ select {
 }
 
 /*
-1. Correct the inability to style clickable shared in iOS and Safari.
+1. Correct the inability to style clickable types in iOS and Safari.
 2. Remove default button styles.
 */
 
@@ -275,7 +275,7 @@ Remove the inner padding in Chrome and Safari on macOS.
 }
 
 /*
-1. Correct the inability to style clickable shared in iOS and Safari.
+1. Correct the inability to style clickable types in iOS and Safari.
 2. Change font properties to `inherit` in Safari.
 */
 
