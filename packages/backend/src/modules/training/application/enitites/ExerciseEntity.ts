@@ -1,5 +1,4 @@
-import { Entity } from '../../../../shared/classes/Entity';
-import { ok, Result, UniqueEntityId } from '../../../../shared/classes';
+import { Entity, ok, Result, UniqueEntityId } from '../../../../shared/classes';
 
 export type TExerciseEntityProps = {
     trainingId: UniqueEntityId;
