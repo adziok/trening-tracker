@@ -9,10 +9,8 @@ export class CognitoOauthController {
 
     @Get()
     @UseGuards(CognitoOauthGuard)
-    cognitoAuth(@Req() _req: Request, @Res() res: Response) {
-        console.log(res);
-        // Guard redirects
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    cognitoAuth() {}
 
     @Get('redirect')
     @UseGuards(CognitoOauthGuard)
