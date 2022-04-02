@@ -1,24 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import './tailwind.output.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AuthorizationPage from './pages/AuthorizationPage';
-import { AuthorizationSuccessPage } from './pages/AuthorizationSuccessPage';
-import { AuthorizationFailedPage } from './pages/AuthorizationFailedPage';
+import { AppRoutes } from './routes/AppRoutes';
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/authorization" element={<AuthorizationPage />} />
-                <Route path="/authorization/success" element={<AuthorizationSuccessPage />} />
-                <Route path="/authorization/failure" element={<AuthorizationFailedPage />} />
-            </Routes>
+            <AppRoutes />
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
