@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import logo from './logo.svg';
+import { Button } from './components/Button';
+
+const PageWrapper: FC = ({ children }) => {
+    return <div className="max-w">{children}</div>;
+};
 
 function App() {
     return (
-        <div className="p-6 max-w-sm mx-auto bg-green-400 rounded-xl shadow-lg flex items-center space-x-4 text-center">
+        <PageWrapper>
             <header>
                 <img src={logo} alt="logo" />
                 <p>
@@ -12,8 +17,9 @@ function App() {
                 <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
                     Learn React
                 </a>
+                <Button size={'md'}>Test</Button>
             </header>
-        </div>
+        </PageWrapper>
     );
 }
 
