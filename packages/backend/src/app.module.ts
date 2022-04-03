@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TrainingModule } from './modules/training/TrainingModule';
 import { AuthModule, TAuthConfig } from './modules/auth';
+import { PresentationModule } from './presentation/PresentationModule';
 
 @Module({
     imports: [
@@ -32,6 +33,7 @@ import { AuthModule, TAuthConfig } from './modules/auth';
                 };
             },
         }),
+        PresentationModule,
     ],
 })
 export class AppModule {}
