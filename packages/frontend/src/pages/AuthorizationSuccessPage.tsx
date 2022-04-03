@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as querystring from 'query-string';
+import { Links } from '../routes/Links';
 
 function AuthorizationSuccessPage() {
     const location = useLocation();
@@ -11,7 +12,7 @@ function AuthorizationSuccessPage() {
         if (queryParams.accessToken && queryParams.refreshToken) {
             localStorage.setItem('accessToken', queryParams.accessToken);
             localStorage.setItem('refreshToken', queryParams.refreshToken);
-            navigate('/');
+            navigate(Links.ACCOUNT_PAGE);
         }
     }, [location?.search]);
 
