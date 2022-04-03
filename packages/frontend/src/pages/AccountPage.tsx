@@ -1,26 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
-const useMe = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [data, setData] = useState<{ id: string } | null>(null);
-    const [error, setError] = useState<{ error: string } | null>(null);
-
-    useEffect(() => {
-        fetch('/accounts/me', {
-            method: 'GET',
-            headers: { Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}` },
-        })
-            .then((res) => res.json())
-            .then((res: { id: string }) => setData(res))
-            .catch((e) => {
-                console.log(e);
-                setError({ error: ':(' });
-            })
-            .finally(() => setIsLoading(false));
-    }, []);
-
-    return { isLoading, data, error };
-};
+import React from 'react';
+import { useMe } from '../hooks/UseMe';
 
 function AccountPage() {
     const { isLoading, error, data } = useMe();

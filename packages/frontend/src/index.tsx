@@ -2,16 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import './index.css';
 import './tailwind.output.css';
 import reportWebVitals from './reportWebVitals';
 import { AppRoutes } from './routes/AppRoutes';
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <AppRoutes />
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <AppRoutes />
+            </BrowserRouter>
+        </QueryClientProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
