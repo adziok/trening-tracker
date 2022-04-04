@@ -62,7 +62,7 @@ export const fetchBackendWithAuthorization = {
     ) => {
         return (
             axiosApiInstance
-                .get(`${baeUrl}${url}`, {
+                .get(url, {
                     headers: opts?.headers,
                     params: opts?.queryParams,
                 })
