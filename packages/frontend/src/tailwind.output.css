@@ -613,22 +613,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-size: auto 20%;
 }
 
-.bg-\[length\:50\%\] {
-  background-size: 50%;
-}
-
-.bg-a-10p {
-  background-size: auto 10%;
-}
-
-.bg-50p {
-  background-size: 50%;
-}
-
-.bg-\[length\:30\%\] {
-  background-size: 30%;
-}
-
 .bg-\[length\:200\%\] {
   background-size: 200%;
 }
@@ -637,16 +621,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-size: auto 30%;
 }
 
+.bg-50p {
+  background-size: 50%;
+}
+
 .bg-bottom {
   background-position: bottom;
-}
-
-.bg-pb-30p {
-  background-position: center bottom 30%;
-}
-
-.bg-no-repeat {
-  background-repeat: no-repeat;
 }
 
 .bg-repeat-x {

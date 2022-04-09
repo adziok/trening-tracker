@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, PageWrapper } from '../components';
+import { generalConfig } from '../configs/general';
 
 export function PlaygroundPage() {
     return (
@@ -11,7 +12,7 @@ export function PlaygroundPage() {
                 {' '}
             </div>
             <div className="p-10 pb-32 text-theme-1 text-center text-theme-5 z-50 w-1/2">
-                <Button background={'bg-theme-2'} size={'md'} href={'http://localhost:3000/auth'}>
+                <Button background={'bg-theme-2'} size={'md'} href={`${generalConfig.backendUrl!}/auth`}>
                     Sign In
                 </Button>
             </div>
