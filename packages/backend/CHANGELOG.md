@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/adziok/trening-tracker/compare/v0.0.5...v0.1.0) (2022-04-09)
+
+
+### Features
+
+* abstract JwtVerifier.ts ([8199892](https://github.com/adziok/trening-tracker/commit/8199892db40d5de2bd5adbf0163d2499d86e84da))
+* create example endpoint to test frontend integration ([832923a](https://github.com/adziok/trening-tracker/commit/832923a235514aa20696bf8c120b35ec8105e9c9))
+* enable cors ([696abc4](https://github.com/adziok/trening-tracker/commit/696abc4a71eeba097abb41564cea8ac8e2247f90))
+
+
+
+
+
 ## [0.0.5](https://github.com/adziok/trening-tracker/compare/v0.0.4...v0.0.5) (2022-04-02)
 
 
