@@ -8,7 +8,6 @@ export class AccountsController {
 
     @Get('me')
     me(): Promise<{ id: string }> {
-        console.log('??????');
         return Promise.resolve({ id: 'ID_HERE' });
     }
 }
