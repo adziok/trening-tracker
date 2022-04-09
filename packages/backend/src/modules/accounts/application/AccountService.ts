@@ -23,4 +23,15 @@ export class AccountService implements IAccountsApi {
             })
         );
     }
+
+    async getAccountByProvider(providerType: string, providerId: string): AsyncResult<TAccount> {
+        return (await this.accountRepository.findByProvider(providerType, providerId)).map<TAccount>((value: Account) =>
+            ok<TAccount, BaseError>({
+                id: value.id,
+                email: value.email,
+                imageUrl: '',
+                username: value.username,
+            })
+        );
+    }
 }

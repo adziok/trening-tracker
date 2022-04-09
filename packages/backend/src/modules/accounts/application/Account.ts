@@ -3,6 +3,8 @@ import { randomUUID } from 'crypto';
 
 export class Account {
     id: TAccountId;
+    providerId: string;
+    providerType: string;
     username: string;
     email: string;
     imageUrl: string | null;

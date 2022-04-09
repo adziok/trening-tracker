@@ -19,4 +19,5 @@ export type TCreateAccount = {
 export abstract class IAccountsApi {
     abstract createAccount(account: TCreateAccount): AsyncResult<TAccountId>;
     abstract getAccountByEmail(email: string): AsyncResult<TAccount>;
+    abstract getAccountByProvider(providerType: string, providerId: string): AsyncResult<TAccount>;
 }

@@ -18,6 +18,16 @@ export class AccountInMemoryRepository implements AccountRepository {
         return undefined;
     }
 
+    findByProvider(providerType: string, providerId: string): AsyncResult<Account> {
+        const account = Object.values(this.db).find(
+            (account: Account) => account.providerId === providerId && account.providerType === providerType
+        );
+        if (account) {
+            return Promise.resolve(ok(account));
+        }
+        return Promise.resolve(err(new Error('Account with given email not found')));
+    }
+
     save(account: Account): AsyncResult<TAccountId> {
         this.db[account.email] = account;
         return Promise.resolve(ok(account.id));
