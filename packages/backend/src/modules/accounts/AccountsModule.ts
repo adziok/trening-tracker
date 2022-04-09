@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { IAccountsApi } from './application/AccountsApi';
 import { AccountService } from './application/AccountService';
 import { AccountRepository } from './application/AccountRepository';
 import { AccountInMemoryRepository } from './infra/AccountInMemoryRepository';
 
+@Global()
 @Module({
     imports: [],
     controllers: [],
