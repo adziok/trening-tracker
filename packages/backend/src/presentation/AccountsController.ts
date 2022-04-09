@@ -10,7 +10,6 @@ export class AccountsController {
 
     @Get('me')
     me(@CurrentAccount() account: TAccount): Promise<{ id: string }> {
-        console.log(account);
         return Promise.resolve({ id: account.id });
     }
 }
