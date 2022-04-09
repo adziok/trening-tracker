@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ExerciseService } from './application/ExerciseService';
 import { TrainingService } from './application/TrainingService';
-import { ICreateTraining } from '../interfaces';
+import { ICreateTraining } from './interfaces';
 
 @Injectable()
 export class TrainingFacade {

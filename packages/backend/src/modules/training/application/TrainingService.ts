@@ -3,7 +3,7 @@ import { TrainingRepository } from './repositories/TrainingRepository';
 import { isDefined, Result, UniqueEntityId } from '../../../shared/classes';
 import { TUniqueEntityId } from '../../../shared/classes/UniqueEntityId';
 import { TrainingEntity } from './enitites/TrainingEntity';
-import { ICreateTraining } from '../../interfaces';
+import { ICreateTraining } from '../interfaces';
 
 @Injectable()
 export class TrainingService {
