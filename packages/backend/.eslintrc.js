@@ -8,6 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist'],
   rules:{
-    "@typescript-eslint/no-unsafe-call": 0
+    "@typescript-eslint/no-unsafe-call": 0,
+    "@typescript-eslint/no-unsafe-member-access": 0
   }
 };
