@@ -12,7 +12,7 @@ export type TAccount = {
 export type TCreateAccount = {
     username: string;
     email: string;
-    providerName: string;
+    providerType: string;
     providerId: string;
 };
 

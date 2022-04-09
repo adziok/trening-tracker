@@ -12,7 +12,7 @@ export class UserSessionFactory {
         const accountApi = this.app.get(AccountFacade);
         const account = await accountApi.createAccount({
             ...data,
-            providerName: 'cognito',
+            providerType: 'cognito',
             providerId: randomUUID(),
         });
         if (account.hasError()) {
