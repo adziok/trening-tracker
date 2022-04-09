@@ -3,12 +3,13 @@ import { TrainingRepository } from './repositories/TrainingRepository';
 import { isDefined, Result, UniqueEntityId } from '../../../shared/classes';
 import { TUniqueEntityId } from '../../../shared/classes/UniqueEntityId';
 import { TrainingEntity } from './enitites/TrainingEntity';
+import { ICreateTraining } from '../../interfaces';
 
 @Injectable()
 export class TrainingService {
     constructor(private readonly trainingRepository: TrainingRepository) {}
 
-    async createTraining(props: { accountId: string; name: string; startedAt?: Date }): Promise<TUniqueEntityId> {
+    async createTraining(props: ICreateTraining): Promise<TUniqueEntityId> {
         let trainingResult: Result<TrainingEntity>;
         if (isDefined(props.startedAt)) {
             trainingResult = TrainingEntity.create({
