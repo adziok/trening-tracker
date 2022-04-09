@@ -25,7 +25,7 @@ export class AccountInMemoryRepository implements AccountRepository {
         if (account) {
             return Promise.resolve(ok(account));
         }
-        return Promise.resolve(err(new Error('Account with given email not found')));
+        return Promise.resolve(err(new Error('Account with given provider data does not exists')));
     }
 
     save(account: Account): AsyncResult<TAccountId> {
