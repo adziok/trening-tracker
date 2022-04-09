@@ -1,22 +1,10 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
-
-import { AuthConfigService } from '../AuthConfigService';
-import { CognitoJwtVerifier } from 'aws-jwt-verify';
+import { JwtVerifier } from '../JwtVerifier';
 
 @Injectable()
 export class CognitoAccessTokenGuard implements CanActivate {
-    private verifier: { verify: (token: string) => any };
-
-    constructor(
-        private readonly config: AuthConfigService // private readonly jwtService: JwtService
-    ) {
-        this.verifier = CognitoJwtVerifier.create({
-            userPoolId: config.get('cognito.userPoolId'),
-            tokenUse: 'access',
-            clientId: null,
-        });
-    }
+    constructor(private readonly verifier: JwtVerifier) {}
 
     static baseUrl(region: string, userPoolId: string): string {
         return `https://cognito-idp.${region}.amazonaws.com/${userPoolId}/.well-known/jwks.json`;

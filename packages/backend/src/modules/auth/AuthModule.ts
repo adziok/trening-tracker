@@ -6,6 +6,7 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './AuthController';
 import { CognitoOauthModule } from './cognito/CognitoOauthModule';
 import { AuthConfigService, TAuthConfig } from './AuthConfigService';
+import { JwtVerifier } from './JwtVerifier';
 
 type RegisterAuthModuleOptions = {
     config: TAuthConfig;
@@ -30,9 +31,10 @@ export class AuthModule {
                         return new AuthConfigService(options.config);
                     },
                 },
+                JwtVerifier,
             ],
             imports: [PassportModule, CognitoOauthModule],
-            exports: [AuthConfigService],
+            exports: [AuthConfigService, JwtVerifier],
             controllers: [AuthController],
         };
     }
@@ -52,9 +54,10 @@ export class AuthModule {
                     useFactory: options.useFactory,
                     inject: options.inject,
                 },
+                JwtVerifier,
             ],
             imports: [PassportModule, CognitoOauthModule, ...(options.imports || [])],
-            exports: [AuthConfigService],
+            exports: [AuthConfigService, JwtVerifier],
             controllers: [AuthController],
         };
     }
