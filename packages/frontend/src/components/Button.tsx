@@ -9,8 +9,11 @@ const ButtonSize = {
 };
 
 const ButtonColor = {
-    primary: 'bg-primary',
-    secondary: 'bg-secondary',
+    'bg-theme-1': 'bg-theme-1',
+    'bg-theme-2': 'bg-theme-2',
+    'bg-theme-3': 'bg-theme-3',
+    'bg-theme-4': 'bg-theme-4',
+    'bg-theme-5': 'bg-theme-5',
 };
 
 type ButtonProps = {
@@ -20,8 +23,16 @@ type ButtonProps = {
     size?: keyof typeof ButtonSize;
     background?: keyof typeof ButtonColor;
     children?: ReactNode;
+    href?: string;
 };
 
-export const Button = ({ children, className = '', size = 'lg', background = 'primary' }: ButtonProps) => {
-    return <button className={`${size} rounded-sm ${className} ${background}`}>{children}</button>;
+export const Button = ({ children, className = '', size = 'md', background = 'bg-theme-1', href }: ButtonProps) => {
+    if (href) {
+        return (
+            <a href={href}>
+                <button className={`${size} rounded-sm ${className} px-6 py-3 ${background}`}>{children}</button>
+            </a>
+        );
+    }
+    return <button className={`${size} rounded-sm ${className} px-6 py-3 ${background}`}>{children}</button>;
 };

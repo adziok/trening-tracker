@@ -16,7 +16,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: currentColor;
+  border-color: #e5e7eb;
   /* 2 */
 }
 
@@ -466,6 +466,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
+.fixed {
+  position: fixed;
+}
+
+.-z-50 {
+  z-index: -50;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -475,18 +491,71 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
+.w-screen {
+  width: 100vw;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
 .max-w-sm {
   max-width: 24rem;
+}
+
+@-webkit-keyframes moveRight {
+  0% {
+    background-position-x: 0px;
+  }
+
+  100% {
+    background-position-x: 5000px;
+  }
+}
+
+@keyframes moveRight {
+  0% {
+    background-position-x: 0px;
+  }
+
+  100% {
+    background-position-x: 5000px;
+  }
+}
+
+.animate-moveRight {
+  -webkit-animation: moveRight 80s linear infinite;
+          animation: moveRight 80s linear infinite;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .items-center {
   align-items: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1rem * var(--tw-space-x-reverse));
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 
 .rounded-sm {
@@ -497,18 +566,99 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 0.75rem;
 }
 
-.bg-primary {
+.bg-theme-1 {
   --tw-bg-opacity: 1;
-  background-color: rgb(63 195 250 / var(--tw-bg-opacity));
+  background-color: rgb(2 49 62 / var(--tw-bg-opacity));
 }
 
-.bg-secondary {
+.bg-theme-2 {
   --tw-bg-opacity: 1;
-  background-color: rgb(245 108 193 / var(--tw-bg-opacity));
+  background-color: rgb(3 80 111 / var(--tw-bg-opacity));
+}
+
+.bg-theme-3 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 143 155 / var(--tw-bg-opacity));
+}
+
+.bg-theme-4 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(136 166 185 / var(--tw-bg-opacity));
+}
+
+.bg-theme-5 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 202 200 / var(--tw-bg-opacity));
+}
+
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.bg-bg {
+  --tw-bg-opacity: 1;
+  background-color: rgb(128 176 164 / var(--tw-bg-opacity));
+}
+
+.bg-mountains {
+  background-image: url('/public/assets/montain.png');
+}
+
+.bg-clouds {
+  background-image: url('/public/assets/clouds-small.png');
+}
+
+.bg-a-20p {
+  background-size: auto 20%;
+}
+
+.bg-\[length\:50\%\] {
+  background-size: 50%;
+}
+
+.bg-a-10p {
+  background-size: auto 10%;
+}
+
+.bg-50p {
+  background-size: 50%;
+}
+
+.bg-\[length\:30\%\] {
+  background-size: 30%;
+}
+
+.bg-\[length\:200\%\] {
+  background-size: 200%;
+}
+
+.bg-a-30p {
+  background-size: auto 30%;
+}
+
+.bg-bottom {
+  background-position: bottom;
+}
+
+.bg-pb-30p {
+  background-position: center bottom 30%;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
+.bg-repeat-x {
+  background-repeat: repeat-x;
 }
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-10 {
+  padding: 2.5rem;
 }
 
 .px-2 {
@@ -561,12 +711,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 1.25rem;
 }
 
+.pb-32 {
+  padding-bottom: 8rem;
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-theme-1 {
+  --tw-text-opacity: 1;
+  color: rgb(2 49 62 / var(--tw-text-opacity));
+}
+
+.text-theme-5 {
+  --tw-text-opacity: 1;
+  color: rgb(209 202 200 / var(--tw-text-opacity));
+}
+
+.opacity-30 {
+  opacity: 0.3;
 }
 
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@media (min-width: 640px) {
+  .sm\:bg-\[length\:100\%\] {
+    background-size: 100%;
+  }
 }
