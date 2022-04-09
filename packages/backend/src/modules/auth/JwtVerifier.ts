@@ -30,7 +30,7 @@ export class JwtVerifier {
         });
     }
 
-    verify(token: string): Promise<VerifiedPayload> {
+    verifyOrThrow(token: string): Promise<VerifiedPayload> {
         return this.verifier.verify(token);
     }
 }

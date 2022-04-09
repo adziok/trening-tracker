@@ -15,7 +15,7 @@ export class CognitoAccessTokenGuard implements CanActivate {
             const request = context.switchToHttp().getRequest<Request>();
             const token = request.header('Authorization')?.replace('Bearer ', '');
 
-            await this.verifier.verify(token);
+            await this.verifier.verifyOrThrow(token);
             return true;
         } catch (e) {
             console.log(e);
