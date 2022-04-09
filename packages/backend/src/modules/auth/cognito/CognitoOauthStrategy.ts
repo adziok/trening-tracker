@@ -2,7 +2,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-oauth2';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import axios from 'axios';
-import { IAccountsApi } from '../../accounts/application/AccountsApi';
+import { AccountFacade } from '../../accounts/application/AccountFacade';
 import { AuthConfigService } from '../AuthConfigService';
 
 type TUserInfoCognito = {
@@ -17,7 +17,7 @@ export class CognitoOauthStrategy extends PassportStrategy(Strategy, 'cognito') 
     private domain: string;
     private region: string;
 
-    constructor(private readonly accountsApi: IAccountsApi, private readonly config: AuthConfigService) {
+    constructor(private readonly accountsApi: AccountFacade, private readonly config: AuthConfigService) {
         super({
             authorizationURL: CognitoOauthStrategy.authorizationUrl(
                 config.get('cognito.domain'),

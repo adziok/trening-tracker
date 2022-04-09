@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { TAccount } from '../accounts/application/AccountsApi';
+import { TAccount } from '../accounts/application/AccountFacade';
 import { Request } from 'express';
 
 export const CurrentAccount = createParamDecorator((ctx: ExecutionContext): TAccount => {

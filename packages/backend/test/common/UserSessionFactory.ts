@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { agent, SuperAgentTest } from 'supertest';
-import { IAccountsApi } from '../../src/modules/accounts/application/AccountsApi';
+import { AccountFacade } from '../../src/modules/accounts/application/AccountFacade';
 
 export type UserSession = SuperAgentTest & { authorizationHeaders: () => Record<string, string> };
 
@@ -9,7 +9,7 @@ export class UserSessionFactory {
     constructor(private app: INestApplication) {}
 
     async create(data: { username: string; email: string }): Promise<UserSession> {
-        const accountApi = this.app.get(IAccountsApi);
+        const accountApi = this.app.get(AccountFacade);
         const account = await accountApi.createAccount({
             ...data,
             providerName: 'cognito',

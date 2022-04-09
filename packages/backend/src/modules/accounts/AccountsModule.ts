@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { IAccountsApi } from './application/AccountsApi';
+import { AccountFacade } from './application/AccountFacade';
 import { AccountService } from './application/AccountService';
 import { AccountRepository } from './application/AccountRepository';
 import { AccountInMemoryRepository } from './infra/AccountInMemoryRepository';
@@ -14,10 +14,10 @@ import { AccountInMemoryRepository } from './infra/AccountInMemoryRepository';
             useClass: AccountInMemoryRepository,
         },
         {
-            provide: IAccountsApi,
+            provide: AccountFacade,
             useClass: AccountService,
         },
     ],
-    exports: [IAccountsApi],
+    exports: [AccountFacade],
 })
 export class AccountsModule {}

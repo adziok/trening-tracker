@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IAccountsApi, TAccount, TAccountId, TCreateAccount } from './AccountsApi';
+import { AccountFacade, TAccount, TAccountId, TCreateAccount } from './AccountFacade';
 import { AccountRepository } from './AccountRepository';
 import { Account } from './Account';
 import { AsyncResult, BaseError, ok } from '../../../shared/classes/Result';
 
 @Injectable()
-export class AccountService implements IAccountsApi {
+export class AccountService implements AccountFacade {
     constructor(private readonly accountRepository: AccountRepository) {}
 
     createAccount(accountData: TCreateAccount): AsyncResult<TAccountId> {

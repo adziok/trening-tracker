@@ -1,5 +1,5 @@
 import { Account } from './Account';
-import { TAccountId } from './AccountsApi';
+import { TAccountId } from './AccountFacade';
 import { AsyncResult } from '../../../shared/classes/Result';
 
 export abstract class AccountRepository {

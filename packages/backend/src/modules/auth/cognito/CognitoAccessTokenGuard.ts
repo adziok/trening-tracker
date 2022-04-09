@@ -1,11 +1,11 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtVerifier } from '../JwtVerifier';
-import { IAccountsApi } from '../../accounts/application/AccountsApi';
+import { AccountFacade } from '../../accounts/application/AccountFacade';
 
 @Injectable()
 export class CognitoAccessTokenGuard implements CanActivate {
-    constructor(private readonly accountFacade: IAccountsApi, private readonly verifier: JwtVerifier) {}
+    constructor(private readonly accountFacade: AccountFacade, private readonly verifier: JwtVerifier) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         try {

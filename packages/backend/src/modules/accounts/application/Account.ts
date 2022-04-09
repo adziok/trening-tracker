@@ -1,4 +1,4 @@
-import { TAccountId, TCreateAccount } from './AccountsApi';
+import { TAccountId, TCreateAccount } from './AccountFacade';
 import { randomUUID } from 'crypto';
 
 export class Account {
