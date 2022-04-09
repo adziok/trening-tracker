@@ -13,8 +13,12 @@ export class CognitoAccessTokenGuard implements CanActivate {
             const token = request.header('Authorization')?.replace('Bearer ', '');
 
             const value = await this.verifier.verifyOrThrow(token);
-            request.user = this.accountFacade.getAccountByProvider('cognito', value.sub);
-            return true;
+            const user = await this.accountFacade.getAccountByProvider('cognito', value.sub);
+            if (user.isOk()) {
+                request.user = user.value;
+                return true;
+            }
+            return false;
         } catch (e) {
             console.log(e);
             return false;
