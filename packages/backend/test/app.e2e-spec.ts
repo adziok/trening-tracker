@@ -1,21 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { createTestingApp } from './common';
+import { UserSession } from './common/UserSessionFactory';
+import { Response } from 'supertest';
 
 describe('AppController (e2e)', () => {
-    let app: INestApplication;
+    let session: UserSession;
 
     beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
-
-        app = moduleFixture.createNestApplication();
-        await app.init();
+        const { userSessionFactory } = await createTestingApp();
+        session = await userSessionFactory.create({ username: 'test', email: 'test@test.com' });
     });
 
-    it('/ (GET)', () => {
-        return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
+    it('/accounts/me (GET)', async () => {
+        await session
+            .get('/accounts/me')
+            .set(session.authorizationHeaders())
+            .expect((res: Response) => {
+                expect(res.body.id).toBeDefined();
+            });
     });
 });
