@@ -1,4 +1,7 @@
 module.exports = {
+  corePlugins: {
+    preflight: false,
+  },
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
@@ -50,7 +53,6 @@ module.exports = {
         'clouds': "url('/public/assets/clouds-small.png')"
       },
       colors: {
-        transparent: 'transparent',
         theme: {
           '1': '#02313e',
           '2': '#03506f',
