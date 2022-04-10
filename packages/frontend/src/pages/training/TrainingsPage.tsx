@@ -3,7 +3,7 @@ import { Button } from '@mantine/core';
 import { PageWrapper } from '../../components';
 import { CreateTrainingModal } from './CreateTrainingModal';
 
-export function TrainingPage() {
+export function TrainingsPage() {
     const [opened, setOpened] = useState(false);
 
     return (

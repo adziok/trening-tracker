@@ -7,7 +7,7 @@ import { AuthorizationFailedPage } from '../pages/AuthorizationFailedPage';
 import { Links } from './Links';
 import { AccountPage } from '../pages/AccountPage';
 import { PlaygroundPage } from '../pages/PlaygroudPage';
-import { TrainingPage } from '../pages/training/TrainingPage';
+import { TrainingsPage } from '../pages/training/TrainingsPage';
 
 export const AppRoutes = () => {
     return (
@@ -17,7 +17,7 @@ export const AppRoutes = () => {
             <Route path={Links.AUTHORIZATION_PAGE} element={<AuthorizationPage />} />
             <Route path={Links.AUTHORIZATION_SUCCESS_PAGE} element={<AuthorizationSuccessPage />} />
             <Route path={Links.AUTHORIZATION_FAILURE_PAGE} element={<AuthorizationFailedPage />} />
-            <Route path={Links.TRAININGS} element={<TrainingPage />} />
+            <Route path={Links.TRAININGS} element={<TrainingsPage />} />
             <Route path={Links.PLAYGROUND} element={<PlaygroundPage />} />
         </Routes>
     );
