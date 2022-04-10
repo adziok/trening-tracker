@@ -4,6 +4,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { AppRoutes } from './routes/AppRoutes';
@@ -20,11 +21,13 @@ ReactDOM.render(
                 spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
             }}
         >
-            <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
-                    <AppRoutes />
-                </BrowserRouter>
-            </QueryClientProvider>
+            <NotificationsProvider>
+                <QueryClientProvider client={queryClient}>
+                    <BrowserRouter>
+                        <AppRoutes />
+                    </BrowserRouter>
+                </QueryClientProvider>
+            </NotificationsProvider>
         </MantineProvider>
     </React.StrictMode>,
     document.getElementById('root')

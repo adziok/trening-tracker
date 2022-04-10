@@ -59,7 +59,7 @@ export function TrainingsPage() {
         <PageWrapper
             footer={
                 <PageFooter position={'apart'}>
-                    <ActionIcon variant="transparent" size={'xl'} onClick={() => setOpened(true)}>
+                    <ActionIcon variant="transparent" size={'xl'} onClick={() => setOpened(true)} disabled>
                         <Search size={50} />
                     </ActionIcon>
                     <ActionIcon variant="transparent" size={'xl'} onClick={() => setOpened(true)}>
@@ -68,7 +68,7 @@ export function TrainingsPage() {
                 </PageFooter>
             }
         >
-            <Timeline active={1} bulletSize={24} lineWidth={2}>
+            <Timeline bulletSize={24} lineWidth={2}>
                 {Object.entries(trainingsGroupedByStartedAt).map(([date, trainingsInDay]) => {
                     return (
                         <Timeline.Item title={dayjs(date).format('YYYY-MM-DD')}>

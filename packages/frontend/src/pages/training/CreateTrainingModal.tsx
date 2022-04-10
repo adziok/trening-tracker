@@ -4,6 +4,7 @@ import { useForm } from '@mantine/form';
 import { DatePicker } from '@mantine/dates';
 import { ICreateTrainingDto } from '@trening-tracker/shared';
 import { createTrainingMutation } from '../../hooks';
+import { showNotification } from '@mantine/notifications';
 
 export const emptyCb = () => {
     return;
@@ -21,16 +22,19 @@ export function CreateTrainingModal({ opened, onClose = emptyCb }: CreateTrainin
             startedAt: undefined,
         },
     });
-    const { mutate: createTraining, isLoading, isError, status } = createTrainingMutation();
+    const { mutate: createTraining, isLoading, isError, status, error } = createTrainingMutation();
 
     useEffect(() => {
         if (!isLoading && status === 'success') {
-            console.log('Success ');
             form.reset();
             onClose();
         }
         if (!isLoading && isError) {
-            console.log('Error');
+            showNotification({
+                message: 'Error occurred',
+                autoClose: 2500,
+                color: 'red',
+            });
         }
     }, [isLoading]);
 
