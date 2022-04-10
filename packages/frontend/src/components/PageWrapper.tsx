@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Container } from '@mantine/core';
 
 type PageWrapperProps = {
     children: ReactNode;
@@ -6,11 +7,5 @@ type PageWrapperProps = {
 };
 
 export const PageWrapper = ({ children, className = '' }: PageWrapperProps) => {
-    return (
-        <div
-            className={`flex flex-col justify-center items-center h-screen w-screen overflow-y-auto overflow-x-hidden -z-50 ${className}`}
-        >
-            {children}
-        </div>
-    );
+    return <Container className={`${className}`}>{children}</Container>;
 };
