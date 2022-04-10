@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, PageWrapper } from '../components';
-import { generalConfig } from '../configs/general';
+import { PageWrapper } from '../components';
+import { Button } from '@mantine/core';
 
 export function PlaygroundPage() {
     return (
@@ -11,10 +11,28 @@ export function PlaygroundPage() {
             <div className="bg-clouds h-screen animate-moveRight w-screen bg-repeat-x fixed bg-bottom z-10 bg-a-30p bg-50p opacity-30">
                 {' '}
             </div>
-            <div className="p-10 pb-32 text-theme-1 text-center text-theme-5 z-50 w-1/2">
-                <Button background={'bg-theme-2'} size={'md'} href={`${generalConfig.backendUrl!}/auth`}>
-                    Sign In
-                </Button>
+
+            <div className="fixed h-1/2 z-50 w-screen -bottom-0">
+                <div className="flex flex-col p-5 h-full">
+                    <div className="flex flex-row">Name:</div>
+                    <div className="flex flex-row">
+                        <input className="w-full" type="text" />
+                    </div>
+                    <div className="flex flex-row">Time:</div>
+                    <div className="flex flex-row">
+                        <input className="w-full" type="datetime-local" />
+                        <Button size="sm" variant={'light'}>
+                            Now
+                        </Button>
+                    </div>
+                    <div className="flex-grow"></div>
+                    <div className="flex flex-row justify-between">
+                        <Button size="sm" variant={'filled'}>
+                            Cancel
+                        </Button>
+                        <Button size="sm">Save</Button>
+                    </div>
+                </div>
             </div>
         </PageWrapper>
     );
