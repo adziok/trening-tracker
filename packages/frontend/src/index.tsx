@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MantineProvider } from '@mantine/core';
 import './index.css';
-import './tailwind.output.css';
 import reportWebVitals from './reportWebVitals';
 import { AppRoutes } from './routes/AppRoutes';
 
@@ -16,7 +15,8 @@ ReactDOM.render(
         <MantineProvider
             theme={{
                 // Override any other properties from default theme
-                fontFamily: 'Open Sans, sans serif',
+                fontFamily:
+                    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
                 spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
             }}
         >
