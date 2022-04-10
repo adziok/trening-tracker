@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Drawer, Group, Text, TextInput } from '@mantine/core';
+import { Box, Button, Drawer, Group, LoadingOverlay, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { DatePicker } from '@mantine/dates';
 import { ICreateTrainingDto } from '@trening-tracker/shared';
@@ -14,11 +14,11 @@ export function PlaygroundPage() {
             startedAt: undefined,
         },
     });
-    const { mutate, isLoading, isSuccess, isError } = createTrainingMutation();
+    const { mutate: createTraining, isLoading, isError, status } = createTrainingMutation();
 
     useEffect(() => {
-        if (!isLoading && isSuccess) {
-            console.log('Success');
+        if (!isLoading && status === 'success') {
+            console.log('Success ');
             form.reset();
             setOpened(false);
         }
@@ -27,15 +27,12 @@ export function PlaygroundPage() {
         }
     }, [isLoading]);
 
-    const createTraining = (data: ICreateTrainingDto) => {
-        mutate(data);
-    };
-
     return (
         <PageWrapper>
             <Button onClick={() => setOpened(true)}>Create training</Button>
             <Drawer position="bottom" opened={opened} withCloseButton={false} onClose={() => setOpened(false)}>
                 <Box sx={{ maxWidth: 300 }} mx="auto">
+                    <LoadingOverlay visible={isLoading} />
                     <form onSubmit={form.onSubmit((values) => createTraining(values))}>
                         <Text size={'xl'} className="pt-2">
                             Create new training:
