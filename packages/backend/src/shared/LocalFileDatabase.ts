@@ -6,13 +6,7 @@ export class LocalFileDatabase<Type, T = Record<string, Type>> {
 
     constructor(private readonly databaseName: string) {
         this.data = {} as T;
-
-        if (!existsSync(this.getDbPatch())) {
-            this.save();
-        }
-        const dataText = readFileSync(this.getDbPatch(), { encoding: 'utf8', flag: 'r' });
-
-        this.data = ((dataText && JSON.parse(dataText)) || {}) as T;
+        this.load();
     }
 
     save() {
@@ -23,5 +17,14 @@ export class LocalFileDatabase<Type, T = Record<string, Type>> {
 
     private getDbPatch() {
         return join(__dirname, '..', '..', 'db', `${this.databaseName}.json`);
+    }
+
+    load() {
+        if (!existsSync(this.getDbPatch())) {
+            this.save();
+        }
+        const dataText = readFileSync(this.getDbPatch(), { encoding: 'utf8', flag: 'r' });
+
+        this.data = ((dataText && JSON.parse(dataText)) || {}) as T;
     }
 }
