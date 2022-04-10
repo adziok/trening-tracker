@@ -1,25 +1,27 @@
 import { TrainingRepository } from '../../application/repositories/TrainingRepository';
 import { TrainingEntity, TTrainingEntityProps } from '../../application/enitites/TrainingEntity';
 import { UniqueEntityId } from '../../../../shared/classes';
+import { LocalFileDatabase } from '../../../../shared/LocalFileDatabase';
 
 export class InMemoryTrainingRepository implements TrainingRepository {
-    private data: Record<string, TTrainingEntityProps> = {};
+    private db = new LocalFileDatabase<TTrainingEntityProps>('exercises');
 
     getById(id: UniqueEntityId): Promise<TrainingEntity | null> {
         return Promise.resolve(
-            (this.data[id.toString()] && TrainingEntity.recreate(this.data[id.toString()], id)) || null
+            (this.db.data[id.toString()] && TrainingEntity.recreate(this.db.data[id.toString()], id)) || null
         );
     }
 
     getByIdAndAccountId(trainingId: UniqueEntityId, accountId: UniqueEntityId): Promise<TrainingEntity | null> {
-        if (this.data[trainingId.toString()] && this.data[trainingId.toString()].accountId.equals(accountId)) {
-            return Promise.resolve(TrainingEntity.recreate(this.data[trainingId.toString()], trainingId));
+        if (this.db.data[trainingId.toString()] && this.db.data[trainingId.toString()].accountId.equals(accountId)) {
+            return Promise.resolve(TrainingEntity.recreate(this.db.data[trainingId.toString()], trainingId));
         }
         return Promise.resolve<null>(null);
     }
 
     save(entity: TrainingEntity): Promise<void> {
-        this.data[entity.id.toString()] = entity.props;
+        this.db.data[entity.id.toString()] = entity.props;
+        this.db.save();
         return Promise.resolve();
     }
 }

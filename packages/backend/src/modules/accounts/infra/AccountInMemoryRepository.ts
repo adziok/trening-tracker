@@ -2,13 +2,14 @@ import { AccountRepository } from '../application/AccountRepository';
 import { TAccountId } from '../application/AccountFacade';
 import { Account } from '../application/Account';
 import { AsyncResult, err, ok } from '../../../shared/classes/Result';
+import { LocalFileDatabase } from '../../../shared/LocalFileDatabase';
 
 export class AccountInMemoryRepository implements AccountRepository {
-    private db: Record<string, Account> = {};
+    private db = new LocalFileDatabase<Account>('accounts');
 
     findByEmail(email: string): AsyncResult<Account> {
-        if (this.db[email]) {
-            return Promise.resolve(ok(this.db[email]));
+        if (this.db.data[email]) {
+            return Promise.resolve(ok(this.db.data[email]));
         }
         return Promise.resolve(err(new Error('Account with given email not found')));
     }
@@ -19,7 +20,7 @@ export class AccountInMemoryRepository implements AccountRepository {
     }
 
     findByProvider(providerType: string, providerId: string): AsyncResult<Account> {
-        const account = Object.values(this.db).find(
+        const account = Object.values(this.db.data).find(
             (account: Account) => account.providerId === providerId && account.providerType === providerType
         );
         if (account) {
@@ -29,7 +30,8 @@ export class AccountInMemoryRepository implements AccountRepository {
     }
 
     save(account: Account): AsyncResult<TAccountId> {
-        this.db[account.email] = account;
+        this.db.data[account.email] = account;
+        this.db.save();
         return Promise.resolve(ok(account.id));
     }
 }
