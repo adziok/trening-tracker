@@ -1,4 +1,4 @@
-import { IsDate, IsOptional, IsString, Length } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 import { ICreateTrainingDto } from '@trening-tracker/shared';
 
 export class CreateTrainingDto implements ICreateTrainingDto {
@@ -7,6 +7,6 @@ export class CreateTrainingDto implements ICreateTrainingDto {
     name: string;
 
     @IsOptional()
-    @IsDate()
+    // @IsDate()
     startedAt?: Date;
 }
