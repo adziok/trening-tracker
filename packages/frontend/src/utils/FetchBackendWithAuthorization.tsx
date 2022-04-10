@@ -56,13 +56,13 @@ axiosApiInstance.interceptors.response.use(
 );
 
 export const fetchBackendWithAuthorization = {
-    get: (
+    get: <ResponseType,>(
         url: string,
         opts?: { headers?: Record<string, string | number>; queryParams?: Record<string, string | number> }
     ) => {
         return (
             axiosApiInstance
-                .get(url, {
+                .get<ResponseType>(url, {
                     headers: opts?.headers,
                     params: opts?.queryParams,
                 })
@@ -70,17 +70,17 @@ export const fetchBackendWithAuthorization = {
                 .then(({ data }) => data)
         );
     },
-    post: (
+    post: <ResponseType, BodyType>(
         url: string,
         opts?: {
-            body?: Record<string, any>;
+            body?: BodyType;
             headers?: Record<string, string | number>;
             queryParams?: Record<string, string | number>;
         }
     ) => {
         return (
             axiosApiInstance
-                .post(url, opts?.body, {
+                .post<ResponseType, AxiosResponse<ResponseType>, BodyType>(url, opts?.body, {
                     headers: opts?.headers,
                     params: opts?.queryParams,
                 })
@@ -88,17 +88,17 @@ export const fetchBackendWithAuthorization = {
                 .then(({ data }) => data)
         );
     },
-    put: (
+    put: <ResponseType, BodyType>(
         url: string,
         opts?: {
-            body?: Record<string, any>;
+            body?: BodyType;
             headers?: Record<string, string | number>;
             queryParams?: Record<string, string | number>;
         }
     ) => {
         return (
             axiosApiInstance
-                .put(url, opts?.body, {
+                .put<ResponseType, AxiosResponse<ResponseType>, BodyType>(url, opts?.body, {
                     headers: opts?.headers,
                     params: opts?.queryParams,
                 })
@@ -106,17 +106,17 @@ export const fetchBackendWithAuthorization = {
                 .then(({ data }) => data)
         );
     },
-    patch: (
+    patch: <ResponseType, BodyType>(
         url: string,
         opts?: {
-            body?: Record<string, any>;
+            body?: BodyType;
             headers?: Record<string, string | number>;
             queryParams?: Record<string, string | number>;
         }
     ) => {
         return (
             axiosApiInstance
-                .patch(url, opts?.body, {
+                .patch<ResponseType, AxiosResponse<ResponseType>, BodyType>(url, opts?.body, {
                     headers: opts?.headers,
                     params: opts?.queryParams,
                 })
@@ -124,7 +124,7 @@ export const fetchBackendWithAuthorization = {
                 .then(({ data }) => data)
         );
     },
-    delete: (
+    delete: <ResponseType,>(
         url: string,
         opts?: {
             headers?: Record<string, string | number>;
@@ -133,7 +133,7 @@ export const fetchBackendWithAuthorization = {
     ) => {
         return (
             axiosApiInstance
-                .delete(url, {
+                .delete<ResponseType>(url, {
                     headers: opts?.headers,
                     params: opts?.queryParams,
                 })
