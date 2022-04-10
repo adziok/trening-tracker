@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Badge, Button, Group, Stack, Text, Timeline } from '@mantine/core';
+import { ActionIcon, Badge, Group, Stack, Text, Timeline } from '@mantine/core';
+import { CirclePlus, Search } from 'tabler-icons-react';
 import { PageWrapper } from '../../components';
 import { CreateTrainingModal } from './CreateTrainingModal';
 import { groupBy } from './GroupByUtil';
 import dayjs from 'dayjs';
+import { PageFooter } from '../../components/PageFooter';
 
 const trainings = [
     {
@@ -54,7 +56,18 @@ export function TrainingsPage() {
     const [opened, setOpened] = useState(false);
 
     return (
-        <PageWrapper>
+        <PageWrapper
+            footer={
+                <PageFooter position={'apart'}>
+                    <ActionIcon variant="transparent" size={'xl'} onClick={() => setOpened(true)}>
+                        <Search size={50} />
+                    </ActionIcon>
+                    <ActionIcon variant="transparent" size={'xl'} onClick={() => setOpened(true)}>
+                        <CirclePlus size={50} />
+                    </ActionIcon>
+                </PageFooter>
+            }
+        >
             <Timeline active={1} bulletSize={24} lineWidth={2}>
                 {Object.entries(trainingsGroupedByStartedAt).map(([date, trainingsInDay]) => {
                     return (
@@ -77,7 +90,6 @@ export function TrainingsPage() {
                     );
                 })}
             </Timeline>
-            <Button onClick={() => setOpened(true)}>Create training</Button>
             <CreateTrainingModal opened={opened} onClose={() => setOpened(false)} />
         </PageWrapper>
     );
