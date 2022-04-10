@@ -4,7 +4,7 @@ import { UniqueEntityId } from '../../../../shared/classes';
 import { LocalFileDatabase } from '../../../../shared/LocalFileDatabase';
 
 export class InMemoryTrainingRepository implements TrainingRepository {
-    private db = new LocalFileDatabase<TTrainingEntityProps>('exercises');
+    private db = new LocalFileDatabase<TTrainingEntityProps>('trainings');
 
     getById(id: UniqueEntityId): Promise<TrainingEntity | null> {
         return Promise.resolve(
