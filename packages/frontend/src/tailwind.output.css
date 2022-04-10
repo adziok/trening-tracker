@@ -98,6 +98,10 @@
   overflow: hidden
 }
 
+.overflow-y-auto {
+  overflow-y: auto
+}
+
 .overflow-x-hidden {
   overflow-x: hidden
 }
@@ -112,6 +116,10 @@
 
 .border-0 {
   border-width: 0px
+}
+
+.border-t-2 {
+  border-top-width: 2px
 }
 
 .border-b-2 {
