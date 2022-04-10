@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActionIcon, Badge, Group, Stack, Text, Timeline } from '@mantine/core';
 import { CirclePlus, Search } from 'tabler-icons-react';
 import { PageWrapper } from '../../components';
@@ -6,54 +6,66 @@ import { CreateTrainingModal } from './CreateTrainingModal';
 import { groupBy } from './GroupByUtil';
 import dayjs from 'dayjs';
 import { PageFooter } from '../../components/PageFooter';
+import { useTrainingList } from '../../hooks';
+import { ITrainingDto } from '@trening-tracker/shared';
 
-const trainings = [
-    {
-        name: 'Chest Training',
-        startedAt: new Date('2022-02-03'),
-        tags: ['chest'],
-    },
-    {
-        name: 'Legs Training',
-        startedAt: new Date('2022-02-04'),
-        tags: ['legs'],
-    },
-    {
-        name: 'OHP Training',
-        startedAt: new Date('2022-02-04'),
-        tags: ['mantra'],
-    },
-    {
-        name: 'Lorem ipsum',
-        startedAt: new Date('2022-02-07'),
-        tags: ['in madrid'],
-    },
-    {
-        name: 'Nice legs',
-        startedAt: new Date('2022-02-08'),
-        tags: ['legs', 'hard'],
-    },
-    {
-        name: 'Poop :))',
-        startedAt: new Date('2022-02-09'),
-        tags: ['brain'],
-    },
-    {
-        name: 'Your best',
-        startedAt: new Date('2022-02-09'),
-        tags: ['biceps'],
-    },
-    {
-        name: 'Max ',
-        startedAt: new Date('2022-02-10'),
-        tags: ['max', 'ohp'],
-    },
-];
-
-const trainingsGroupedByStartedAt = groupBy(trainings, 'startedAt');
+// const trainings = [
+//     {
+//         name: 'Chest Training',
+//         startedAt: new Date('2022-02-03'),
+//         tags: ['chest'],
+//     },
+//     {
+//         name: 'Legs Training',
+//         startedAt: new Date('2022-02-04'),
+//         tags: ['legs'],
+//     },
+//     {
+//         name: 'OHP Training',
+//         startedAt: new Date('2022-02-04'),
+//         tags: ['mantra'],
+//     },
+//     {
+//         name: 'Lorem ipsum',
+//         startedAt: new Date('2022-02-07'),
+//         tags: ['in madrid'],
+//     },
+//     {
+//         name: 'Nice legs',
+//         startedAt: new Date('2022-02-08'),
+//         tags: ['legs', 'hard'],
+//     },
+//     {
+//         name: 'Poop :))',
+//         startedAt: new Date('2022-02-09'),
+//         tags: ['brain'],
+//     },
+//     {
+//         name: 'Your best',
+//         startedAt: new Date('2022-02-09'),
+//         tags: ['biceps'],
+//     },
+//     {
+//         name: 'Max ',
+//         startedAt: new Date('2022-02-10'),
+//         tags: ['max', 'ohp'],
+//     },
+// ];
+//
+// const trainingsGroupedByStartedAt = groupBy(trainings, 'startedAt');
 
 export function TrainingsPage() {
     const [opened, setOpened] = useState(false);
+    const [trainingsGroupedByStartedAt, setTrainingsGroupedByStartedAt] = useState<Record<string, ITrainingDto[]>>({});
+    const { data, isLoading } = useTrainingList();
+
+    useEffect(() => {
+        console.log(data);
+        if (data) {
+            const trainingsGroupedByStartedAt = groupBy(data.nodes, 'startedAt');
+            setTrainingsGroupedByStartedAt(trainingsGroupedByStartedAt);
+        }
+    }, [data]);
 
     return (
         <PageWrapper
@@ -78,7 +90,7 @@ export function TrainingsPage() {
                                         <Stack spacing={'xs'}>
                                             <Text color="dimmed">{training.name} </Text>
                                             <Group>
-                                                {training.tags.map((tag) => (
+                                                {['chest'].map((tag) => (
                                                     <Badge>{tag}</Badge>
                                                 ))}
                                             </Group>
