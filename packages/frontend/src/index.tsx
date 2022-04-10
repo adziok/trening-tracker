@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { MantineProvider } from '@mantine/core';
 import './index.css';
 import './tailwind.output.css';
 import reportWebVitals from './reportWebVitals';
@@ -12,11 +13,19 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
     <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <AppRoutes />
-            </BrowserRouter>
-        </QueryClientProvider>
+        <MantineProvider
+            theme={{
+                // Override any other properties from default theme
+                fontFamily: 'Open Sans, sans serif',
+                spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
+            }}
+        >
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <AppRoutes />
+                </BrowserRouter>
+            </QueryClientProvider>
+        </MantineProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
