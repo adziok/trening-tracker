@@ -57,10 +57,9 @@ import { ITrainingDto } from '@trening-tracker/shared';
 export function TrainingsPage() {
     const [opened, setOpened] = useState(false);
     const [trainingsGroupedByStartedAt, setTrainingsGroupedByStartedAt] = useState<Record<string, ITrainingDto[]>>({});
-    const { data, isLoading } = useTrainingList();
+    const { data, isLoading, refetch } = useTrainingList();
 
     useEffect(() => {
-        console.log(data);
         if (data) {
             const trainingsGroupedByStartedAt = groupBy(data.nodes, 'startedAt');
             setTrainingsGroupedByStartedAt(trainingsGroupedByStartedAt);
@@ -102,7 +101,13 @@ export function TrainingsPage() {
                     );
                 })}
             </Timeline>
-            <CreateTrainingModal opened={opened} onClose={() => setOpened(false)} />
+            <CreateTrainingModal
+                opened={opened}
+                onClose={() => setOpened(false)}
+                onSave={() => {
+                    void refetch();
+                }}
+            />
         </PageWrapper>
     );
 }

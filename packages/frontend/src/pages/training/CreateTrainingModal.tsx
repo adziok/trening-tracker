@@ -13,9 +13,10 @@ export const emptyCb = () => {
 export type CreateTrainingModalProps = {
     opened: boolean;
     onClose: () => void;
+    onSave: () => void;
 };
 
-export function CreateTrainingModal({ opened, onClose = emptyCb }: CreateTrainingModalProps) {
+export function CreateTrainingModal({ opened, onClose = emptyCb, onSave = emptyCb }: CreateTrainingModalProps) {
     const form = useForm<ICreateTrainingDto>({
         initialValues: {
             name: '',
@@ -27,6 +28,7 @@ export function CreateTrainingModal({ opened, onClose = emptyCb }: CreateTrainin
     useEffect(() => {
         if (!isLoading && status === 'success') {
             form.reset();
+            onSave();
             onClose();
         }
         if (!isLoading && isError) {
