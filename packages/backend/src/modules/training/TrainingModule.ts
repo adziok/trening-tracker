@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { ExerciseService } from './application/ExerciseService';
 import { TrainingService } from './application/TrainingService';
 import { ExerciseRepository } from './application/repositories/ExerciseRepository';
-import { InMemoryExerciseRepository } from './infra/database/InMemoryExerciseRepository';
 import { TrainingRepository } from './application/repositories/TrainingRepository';
-import { InMemoryTrainingRepository } from './infra/database/InMemoryTrainingRepository';
 import { TrainingFacade } from './TrainingFacade';
 import { TrainingReadService } from './TrainingReadService';
+import { LocalMemoryTrainingRepository } from './infra/database/LocalMemoryTrainingRepository';
+import { LocalMemoryExerciseRepository } from './infra/database/LocalMemoryExerciseRepository';
 
 @Module({
     providers: [
@@ -14,11 +14,11 @@ import { TrainingReadService } from './TrainingReadService';
         TrainingService,
         {
             provide: ExerciseRepository,
-            useClass: InMemoryExerciseRepository,
+            useClass: LocalMemoryExerciseRepository,
         },
         {
             provide: TrainingRepository,
-            useClass: InMemoryTrainingRepository,
+            useClass: LocalMemoryTrainingRepository,
         },
         TrainingFacade,
         TrainingReadService,
