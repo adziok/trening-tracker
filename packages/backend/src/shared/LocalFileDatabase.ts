@@ -1,5 +1,5 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { FSWrapper } from './FSWRapper';
 
 export class LocalFileDatabase<Type, T = Record<string, Type>> {
     data: T;
@@ -10,9 +10,7 @@ export class LocalFileDatabase<Type, T = Record<string, Type>> {
     }
 
     save() {
-        writeFileSync(this.getDbPatch(), JSON.stringify(this.data), {
-            encoding: 'utf-8',
-        });
+        FSWrapper.writeFileSync(this.getDbPatch(), JSON.stringify(this.data));
     }
 
     private getDbPatch() {
@@ -20,10 +18,10 @@ export class LocalFileDatabase<Type, T = Record<string, Type>> {
     }
 
     load() {
-        if (!existsSync(this.getDbPatch())) {
+        if (!FSWrapper.existsSync(this.getDbPatch())) {
             this.save();
         }
-        const dataText = readFileSync(this.getDbPatch(), { encoding: 'utf8', flag: 'r' });
+        const dataText = FSWrapper.readFileSync(this.getDbPatch());
 
         this.data = ((dataText && JSON.parse(dataText)) || {}) as T;
     }
