@@ -1,11 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { IPaginationQueryDto } from '@trening-tracker/shared';
-import { LocalFileDatabase } from '../../shared/LocalFileDatabase';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
 import { TrainingRecord } from './infra/database/TrainingRecord';
+import { LocalFileDatabase } from '../../shared/LocalFileDatabase';
 
 @Injectable()
 export class TrainingReadService {
     private db = new LocalFileDatabase<TrainingRecord>('trainings');
+
+    getAccountTrainingById(accountId: string, id: string): Promise<ITrainingDto> {
+        this.db.load();
+        const training = Object.values(this.db.data).find(
+            (training) => training.accountId === accountId && training.id === id
+        );
+        if (!training) {
+            throw new NotFoundException();
+        }
+        return Promise.resolve(training);
+    }
 
     listAccountTrainings(accountId: string, pagination: IPaginationQueryDto): Promise<TrainingRecord[]> {
         this.db.load();

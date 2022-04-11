@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { IPaginationDto, IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
 import { TrainingFacade } from '../../modules/training/TrainingFacade';
 import { Authorized } from '../../modules/auth';
@@ -26,5 +26,10 @@ export class TrainingController {
         @Query() data: IPaginationQueryDto
     ): Promise<IPaginationDto<ITrainingDto>> {
         return this.trainingFacade.listTrainings(account.id, { skip: data.skip || 0, limit: data.limit || 10 });
+    }
+
+    @Get(':id')
+    get(@CurrentAccount() account: TAccount, @Param('id') id: string): Promise<ITrainingDto> {
+        return this.trainingFacade.getAccountTrainingById(account.id, id);
     }
 }

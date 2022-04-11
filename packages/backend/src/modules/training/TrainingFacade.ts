@@ -17,6 +17,10 @@ export class TrainingFacade {
         return this.trainingService.createTraining(trainingDto);
     }
 
+    getAccountTrainingById(accountId: string, id: string): Promise<ITrainingDto> {
+        return this.trainingReadService.getAccountTrainingById(accountId, id);
+    }
+
     async listTrainings(accountId: string, pagination: IPaginationQueryDto): Promise<IPaginationDto<ITrainingDto>> {
         const nodes = await this.trainingReadService.listAccountTrainings(accountId, pagination);
         const totalCount = await this.trainingReadService.count(accountId);
