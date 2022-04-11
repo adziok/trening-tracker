@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { UserSessionFactory } from './UserSessionFactory';
 import { AppModule } from '../../src/app.module';
 import { JwtVerifier } from '../../src/modules/auth/JwtVerifier';
@@ -32,5 +32,5 @@ export const createTestingApp = async () => {
 };
 
 const attachPipes = (app: INestApplication) => {
-    // app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe());
 };
