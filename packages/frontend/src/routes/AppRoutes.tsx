@@ -7,7 +7,7 @@ import { AuthorizationFailedPage } from '../pages/AuthorizationFailedPage';
 import { Links } from './Links';
 import { AccountPage } from '../pages/AccountPage';
 import { PlaygroundPage } from '../pages/PlaygroudPage';
-import { TrainingsPage } from '../pages/training/TrainingsPage';
+import { TrainingsPage } from '../pages/trainings/TrainingsPage';
 
 export const AppRoutes = () => {
     return (
