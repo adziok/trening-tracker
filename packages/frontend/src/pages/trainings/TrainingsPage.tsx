@@ -28,7 +28,7 @@ export function TrainingsPage() {
 
     return (
         <PageWrapper>
-            <Timeline bulletSize={24} lineWidth={2} className={'mt-3'} active={Infinity}>
+            <Timeline bulletSize={24} lineWidth={2} className={'mt-3 mb-10'} active={Infinity}>
                 {Object.entries(trainingsGroupedByStartedAt).map(([date, trainingsInDay]) => {
                     return (
                         <Timeline.Item
@@ -40,7 +40,7 @@ export function TrainingsPage() {
                             className={'pl-0'}
                             color={'violet'}
                         >
-                            <Stack spacing={'xs'}>
+                            <Stack spacing={5}>
                                 {trainingsInDay.map((training) => {
                                     return (
                                         <UnstyledButton onClick={() => navigateToTraining(training.id)}>

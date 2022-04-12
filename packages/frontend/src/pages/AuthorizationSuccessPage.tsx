@@ -12,7 +12,7 @@ function AuthorizationSuccessPage() {
         if (queryParams.accessToken && queryParams.refreshToken) {
             localStorage.setItem('accessToken', queryParams.accessToken);
             localStorage.setItem('refreshToken', queryParams.refreshToken);
-            navigate(Links.ACCOUNT_PAGE);
+            navigate(Links.TRAININGS);
         }
     }, [location?.search]);
 
