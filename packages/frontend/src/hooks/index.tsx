@@ -18,3 +18,9 @@ export const useTrainingList = (limit = 10, skip = 0) => {
         fetchBackendWithAuthorization.get<IPaginationDto<ITrainingDto>>('training', { queryParams: { limit, skip } })
     );
 };
+
+export const useTraining = (trainingId: string) => {
+    return useQuery<ITrainingDto, { error: string }>(['training', trainingId], () =>
+        fetchBackendWithAuthorization.get<ITrainingDto>(`training/${trainingId}`)
+    );
+};
