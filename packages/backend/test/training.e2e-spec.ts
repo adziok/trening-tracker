@@ -63,7 +63,6 @@ describe('AppController (e2e)', () => {
             id,
             name: 'First training updated',
         });
-        console.log(body);
 
         await session
             .get(`/training/${id}`)
