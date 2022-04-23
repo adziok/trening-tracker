@@ -64,11 +64,14 @@ export function TrainingsPage() {
                                                     <Edit size={25} />
                                                 </ActionIcon>
                                             </Stack>
-                                            <UnstyledButton onClick={() => navigateToTraining(training.id)}>
+                                            <UnstyledButton
+                                                onClick={() => navigateToTraining(training.id)}
+                                                className={'flex-1'}
+                                            >
                                                 <Stack
                                                     spacing={'xs'}
                                                     className={
-                                                        'border-0 border-l-2 border-solid border-gray-50 py-3 px-2'
+                                                        'border-0 border-l-2 border-solid border-gray-50 py-3 px-2 '
                                                     }
                                                 >
                                                     <Text color="dimmed" className={''}>
