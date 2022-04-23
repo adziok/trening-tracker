@@ -4,6 +4,7 @@ import {
     ICreateTrainingDto,
     IPaginationDto,
     ITrainingDto,
+    IUpdateTrainingDto,
     MutableActionResultDto,
 } from '@trening-tracker/shared';
 import { fetchBackendWithAuthorization } from '../utils/FetchBackendWithAuthorization';
@@ -11,6 +12,11 @@ import { fetchBackendWithAuthorization } from '../utils/FetchBackendWithAuthoriz
 export const createTrainingMutation = () =>
     useMutation<MutableActionResultDto, IBaseServerError, ICreateTrainingDto>((body) => {
         return fetchBackendWithAuthorization.post<MutableActionResultDto, ICreateTrainingDto>('training', { body });
+    });
+
+export const updateTrainingMutation = () =>
+    useMutation<MutableActionResultDto, IBaseServerError, IUpdateTrainingDto>((body) => {
+        return fetchBackendWithAuthorization.put<MutableActionResultDto, IUpdateTrainingDto>('training', { body });
     });
 
 export const useTrainingList = (limit = 10, skip = 0) => {
