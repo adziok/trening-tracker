@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { IPaginationDto, IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
 import { TrainingFacade } from '../../modules/training/TrainingFacade';
 import { Authorized } from '../../modules/auth';
@@ -6,6 +6,7 @@ import { MutableActionResultDto } from '../common/MutableActionResultDto';
 import { CreateTrainingDto } from './dtos/CreateTrainingDto';
 import { CurrentAccount } from '../../modules/auth/CurrentAccount';
 import { TAccount } from '../../modules/accounts/application/AccountFacade';
+import { UpdateTrainingDto } from './dtos/UpdateTrainingDto';
 
 @Authorized()
 @Controller('training')
@@ -18,6 +19,14 @@ export class TrainingController {
         @Body() data: CreateTrainingDto
     ): Promise<MutableActionResultDto> {
         return { id: await this.trainingFacade.createTraining({ ...data, accountId: account.id }) };
+    }
+
+    @Put()
+    async updateTraining(
+        @CurrentAccount() account: TAccount,
+        @Body() data: UpdateTrainingDto
+    ): Promise<MutableActionResultDto> {
+        return { id: await this.trainingFacade.updateTraining({ ...data, accountId: account.id }) };
     }
 
     @Get()
