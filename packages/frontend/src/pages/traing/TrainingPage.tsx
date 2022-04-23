@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, ActionIcon, Group, LoadingOverlay, Text, ThemeIcon } from '@mantine/core';
+import { Accordion, ActionIcon, Badge, Card, Group, LoadingOverlay, Text, ThemeIcon } from '@mantine/core';
 import { ChevronLeft, Palette } from 'tabler-icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components';
@@ -32,6 +32,16 @@ export function TrainingPage() {
             </Group>
 
             {/*<Divider my="sm" clas sName={'m-0'} />*/}
+            {new Array(6).fill('').map(() => (
+                <Card shadow="sm" p="sm" className={'m-4'}>
+                    <Group position="apart" style={{ marginBottom: 5, marginTop: 10 }}>
+                        <Text weight={500}>Norway Fjord Adventures</Text>
+                        <Badge color="violet" variant="light">
+                            Series: 3
+                        </Badge>
+                    </Group>
+                </Card>
+            ))}
 
             <Accordion multiple={true} disableIconRotation={true} className={'mt-3'}>
                 {new Array(6).fill('').map(() => (
