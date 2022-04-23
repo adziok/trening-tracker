@@ -9,11 +9,13 @@ import { ITrainingDto } from '@trening-tracker/shared';
 import { useNavigate } from 'react-router-dom';
 import { Links } from '../../routes/Links';
 import { FloatingButton } from '../../components/FloatingButton';
-import { Plus } from 'tabler-icons-react';
+import { Edit, Plus } from 'tabler-icons-react';
+import { UpdateTrainingModal } from './UpdateTrainingModal';
 
 export function TrainingsPage() {
     const navigate = useNavigate();
-    const [opened, setOpened] = useState(false);
+    const [createTrainingDialogOpened, setCreateTrainingDialogOpened] = useState(false);
+    const [updateTrainingDialog, setUpdateTrainingDialog] = useState<ITrainingDto | null>(null);
     const [trainingsGroupedByStartedAt, setTrainingsGroupedByStartedAt] = useState<Record<string, ITrainingDto[]>>({});
     const { data, isLoading, refetch } = useTrainingList();
 
@@ -43,15 +45,26 @@ export function TrainingsPage() {
                             <Stack spacing={5}>
                                 {trainingsInDay.map((training) => {
                                     return (
-                                        <UnstyledButton onClick={() => navigateToTraining(training.id)}>
-                                            <Group
-                                                spacing={1}
-                                                className={'rounded-md rounded-l-none shadow-md bg-white'}
-                                                noWrap={true}
-                                            >
+                                        <Group
+                                            spacing={1}
+                                            className={'rounded-md rounded-l-none shadow-md bg-white'}
+                                            noWrap={true}
+                                        >
+                                            <Stack spacing={'xs'} align={'center'}>
                                                 <Text color="dimmed" className={'px-2'}>
                                                     17:30
                                                 </Text>
+                                                <ActionIcon
+                                                    variant={'transparent'}
+                                                    color={'violet'}
+                                                    size={25}
+                                                    radius={30}
+                                                    onClick={() => setUpdateTrainingDialog(training)}
+                                                >
+                                                    <Edit size={25} />
+                                                </ActionIcon>
+                                            </Stack>
+                                            <UnstyledButton onClick={() => navigateToTraining(training.id)}>
                                                 <Stack
                                                     spacing={'xs'}
                                                     className={
@@ -67,8 +80,8 @@ export function TrainingsPage() {
                                                         ))}
                                                     </Group>
                                                 </Stack>
-                                            </Group>
-                                        </UnstyledButton>
+                                            </UnstyledButton>
+                                        </Group>
                                     );
                                 })}
                             </Stack>
@@ -84,15 +97,23 @@ export function TrainingsPage() {
                     color={'violet'}
                     size={60}
                     radius={100}
-                    onClick={() => setOpened(true)}
+                    onClick={() => setCreateTrainingDialogOpened(true)}
                 >
                     <Plus size={50} />
                 </ActionIcon>
             </FloatingButton>
 
             <CreateTrainingModal
-                opened={opened}
-                onClose={() => setOpened(false)}
+                opened={createTrainingDialogOpened}
+                onClose={() => setCreateTrainingDialogOpened(false)}
+                onSave={() => {
+                    void refetch();
+                }}
+            />
+
+            <UpdateTrainingModal
+                training={updateTrainingDialog}
+                onClose={() => setUpdateTrainingDialog(null)}
                 onSave={() => {
                     void refetch();
                 }}
