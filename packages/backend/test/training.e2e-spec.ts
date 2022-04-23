@@ -52,6 +52,33 @@ describe('AppController (e2e)', () => {
             });
     });
 
+    it('should update training name', async () => {
+        const {
+            body: { id },
+        }: { body: { id: string } } = await session.post('/training').set(session.authorizationHeaders()).send({
+            name: 'First training',
+            startedAt: new Date(),
+        });
+        const { body } = await session.put('/training').set(session.authorizationHeaders()).send({
+            id,
+            name: 'First training updated',
+        });
+        console.log(body);
+
+        await session
+            .get(`/training/${id}`)
+            .set(session.authorizationHeaders())
+            .send()
+            .expect((res) => {
+                expect(res.body).toEqual(
+                    expect.objectContaining({
+                        id: id,
+                        name: 'First training updated',
+                    })
+                );
+            });
+    });
+
     it('should list trainings', async () => {
         await session.post('/training').set(session.authorizationHeaders()).send({
             name: 'First training',
