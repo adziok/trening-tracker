@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable @typescript-eslint/no-unsafe-assignment
 import axios, { AxiosResponse } from 'axios';
+import { axiosResponseDateTransformer } from './axiosResponseDateTransformer';
 
 // Shame on me, one day I will refactor this code :))))) Promise<>
 
@@ -39,6 +40,8 @@ axiosApiInstance.interceptors.request.use(
 // Response interceptor for API calls
 axiosApiInstance.interceptors.response.use(
     (response) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        response.data = axiosResponseDateTransformer(response.data);
         return response;
     },
     async function (error: any) {
