@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IPaginationDto, IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
 import { ExerciseService } from './application/ExerciseService';
 import { TrainingService } from './application/TrainingService';
-import { ICreateTraining } from './interfaces';
+import { ICreateTraining, IUpdateTraining } from './interfaces';
 import { TrainingReadService } from './TrainingReadService';
 
 @Injectable()
@@ -15,6 +15,10 @@ export class TrainingFacade {
 
     createTraining(trainingDto: ICreateTraining): Promise<string> {
         return this.trainingService.createTraining(trainingDto);
+    }
+
+    updateTraining(trainingDto: IUpdateTraining): Promise<string> {
+        return this.trainingService.updateTraining(trainingDto);
     }
 
     getAccountTrainingById(accountId: string, id: string): Promise<ITrainingDto> {

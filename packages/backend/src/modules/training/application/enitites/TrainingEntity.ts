@@ -18,4 +18,11 @@ export class TrainingEntity extends Entity<TTrainingEntityProps> {
     static recreate(props: TTrainingEntityProps, id: UniqueEntityId): TrainingEntity {
         return new TrainingEntity(props, id);
     }
+
+    update({ name, startedAt }: Partial<Omit<TTrainingEntityProps, 'accountId'>>): Result<TrainingEntity> {
+        this.props.name = name ?? this.props.name;
+        this.props.startedAt = startedAt ?? this.props.startedAt;
+
+        return ok(this);
+    }
 }
