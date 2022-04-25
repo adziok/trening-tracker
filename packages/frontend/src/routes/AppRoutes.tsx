@@ -5,7 +5,7 @@ import { Links } from './Links';
 import { AccountPage } from '../pages/AccountPage';
 import { PlaygroundPage } from '../pages/PlaygroudPage';
 import { TrainingsPage } from '../pages/trainings/TrainingsPage';
-import { TrainingPage } from '../pages/traing/TrainingPage';
+import { TrainingPage } from '../pages/training/TrainingPage';
 import { useMe } from '../hooks/UseMe';
 import { LoadingOverlay } from '@mantine/core';
 import { AuthorizationSuccessPage } from '../pages/AuthorizationSuccessPage';
