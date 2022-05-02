@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer';
 import { UniqueEntityId } from '../../../../shared/classes';
 import { TTrainingEntityProps } from '../../application/enitites/TrainingEntity';
+import { TExerciseEntityProps } from '../../application/enitites/ExerciseEntity';
 
 export class BaseRecord {
     @Transform(({ value }: { value: string }) => UniqueEntityId.recreate(value), { toClassOnly: true })
@@ -17,4 +18,12 @@ export class TrainingRecord extends BaseRecord implements Record<keyof TTraining
     name: string;
 
     startedAt: Date;
+}
+
+export class ExerciseRecord extends BaseRecord implements Record<keyof TExerciseEntityProps, unknown> {
+    @Transform(({ value }: { value: string }) => UniqueEntityId.recreate(value), { toClassOnly: true })
+    @Transform(({ value }: { value: UniqueEntityId }) => value.toValue(), { toPlainOnly: true })
+    trainingId: string;
+
+    name: string;
 }
