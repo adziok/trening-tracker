@@ -4,7 +4,9 @@ import { CreateExerciseInTrainingDto, RemoveExerciseFromTrainingDto } from './dt
 import { CurrentAccount } from '../../modules/auth/CurrentAccount';
 import { TAccount } from '../../modules/accounts/application/AccountFacade';
 import { IExerciseDto, IPaginationDto, IPaginationExercisesQueryDto } from '@trening-tracker/shared';
+import { Authorized } from '../../modules/auth';
 
+@Authorized()
 @Controller('exercise')
 export class ExerciseController {
     constructor(private readonly trainingFacade: TrainingFacade) {}
