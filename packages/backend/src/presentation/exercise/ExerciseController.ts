@@ -5,6 +5,7 @@ import { CurrentAccount } from '../../modules/auth/CurrentAccount';
 import { TAccount } from '../../modules/accounts/application/AccountFacade';
 import { IExerciseDto, IPaginationDto, IPaginationExercisesQueryDto } from '@trening-tracker/shared';
 import { Authorized } from '../../modules/auth';
+import { MutableActionResultDto } from '../common/MutableActionResultDto';
 
 @Authorized()
 @Controller('exercise')
@@ -12,13 +13,19 @@ export class ExerciseController {
     constructor(private readonly trainingFacade: TrainingFacade) {}
 
     @Post()
-    createExerciseInTraining(@CurrentAccount() account: TAccount, @Body() dto: CreateExerciseInTrainingDto) {
-        return this.trainingFacade.createExerciseInTraining({ ...dto, accountId: account.id });
+    async createExerciseInTraining(
+        @CurrentAccount() account: TAccount,
+        @Body() dto: CreateExerciseInTrainingDto
+    ): Promise<MutableActionResultDto> {
+        return { id: await this.trainingFacade.createExerciseInTraining({ ...dto, accountId: account.id }) };
     }
 
     @Delete()
-    removeExerciseFromTraining(@CurrentAccount() account: TAccount, @Body() dto: RemoveExerciseFromTrainingDto) {
-        return this.trainingFacade.removeExerciseFromTraining({ ...dto, accountId: account.id });
+    async removeExerciseFromTraining(
+        @CurrentAccount() account: TAccount,
+        @Body() dto: RemoveExerciseFromTrainingDto
+    ): Promise<MutableActionResultDto> {
+        return { id: await this.trainingFacade.removeExerciseFromTraining({ ...dto, accountId: account.id }) };
     }
 
     @Get()
