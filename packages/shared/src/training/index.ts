@@ -14,3 +14,14 @@ export type ITrainingDto = {
     name: string;
     startedAt: Date;
 };
+
+export type IExerciseDto = {
+    id: string;
+    name: string;
+    trainingId: string;
+};
+
+export type IAddExerciseToTrainingDto = {
+    name: string;
+    trainingId: string;
+};
