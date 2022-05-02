@@ -7,6 +7,7 @@ import { TrainingFacade } from './TrainingFacade';
 import { TrainingReadService } from './TrainingReadService';
 import { LocalMemoryTrainingRepository } from './infra/database/LocalMemoryTrainingRepository';
 import { LocalMemoryExerciseRepository } from './infra/database/LocalMemoryExerciseRepository';
+import { ExerciseReadService } from './ExerciseReadService';
 
 @Module({
     providers: [
@@ -22,6 +23,7 @@ import { LocalMemoryExerciseRepository } from './infra/database/LocalMemoryExerc
         },
         TrainingFacade,
         TrainingReadService,
+        ExerciseReadService,
     ],
     exports: [TrainingFacade],
 })
