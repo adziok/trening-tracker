@@ -4,4 +4,5 @@ import { ExerciseEntity } from '../enitites/ExerciseEntity';
 export abstract class ExerciseRepository {
     abstract getById(id: UniqueEntityId): Promise<ExerciseEntity | null>;
     abstract save(entity: ExerciseEntity): Promise<void>;
+    abstract removeById(id: UniqueEntityId): Promise<void>;
 }

@@ -17,4 +17,10 @@ export class LocalMemoryExerciseRepository implements ExerciseRepository {
         this.db.save();
         return Promise.resolve();
     }
+
+    removeById(id: UniqueEntityId): Promise<void> {
+        delete this.db[id.toString()];
+        this.db.save();
+        return Promise.resolve();
+    }
 }

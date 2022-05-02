@@ -12,7 +12,11 @@ export class ExerciseService {
         private readonly trainingService: TrainingService
     ) {}
 
-    async createExercise(props: { accountId: string; name: string; trainingId: string }): Promise<TUniqueEntityId> {
+    async createExerciseInTraining(props: {
+        accountId: string;
+        name: string;
+        trainingId: string;
+    }): Promise<TUniqueEntityId> {
         if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
             throw new BaseError('Training with given id not exists or is not related  to your account');
         }
@@ -25,5 +29,17 @@ export class ExerciseService {
 
         await this.exerciseRepository.save(exerciseResult.value);
         return exerciseResult.value.id.toValue();
+    }
+
+    async removeExerciseFromTraining(props: {
+        accountId: string;
+        exerciseId: string;
+        trainingId: string;
+    }): Promise<TUniqueEntityId> {
+        if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
+            throw new BaseError('Training with given id not exists or is not related  to your account');
+        }
+        await this.exerciseRepository.removeById(UniqueEntityId.recreate(props.exerciseId));
+        return props.exerciseId;
     }
 }
