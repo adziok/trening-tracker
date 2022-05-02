@@ -4,6 +4,7 @@ import { ExerciseRepository } from './repositories/ExerciseRepository';
 import { ExerciseEntity } from './enitites/ExerciseEntity';
 import { TrainingService } from './TrainingService';
 import { BaseError } from '../../../shared/classes/Result';
+import { ICreateExerciseInTraining, IRemoveExerciseFromTraining } from '../interfaces';
 
 @Injectable()
 export class ExerciseService {
@@ -12,11 +13,7 @@ export class ExerciseService {
         private readonly trainingService: TrainingService
     ) {}
 
-    async createExerciseInTraining(props: {
-        accountId: string;
-        name: string;
-        trainingId: string;
-    }): Promise<TUniqueEntityId> {
+    async createExerciseInTraining(props: ICreateExerciseInTraining): Promise<TUniqueEntityId> {
         if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
             throw new BaseError('Training with given id not exists or is not related  to your account');
         }
@@ -31,11 +28,7 @@ export class ExerciseService {
         return exerciseResult.value.id.toValue();
     }
 
-    async removeExerciseFromTraining(props: {
-        accountId: string;
-        exerciseId: string;
-        trainingId: string;
-    }): Promise<TUniqueEntityId> {
+    async removeExerciseFromTraining(props: IRemoveExerciseFromTraining): Promise<TUniqueEntityId> {
         if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
             throw new BaseError('Training with given id not exists or is not related  to your account');
         }
