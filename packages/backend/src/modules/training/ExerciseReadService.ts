@@ -24,4 +24,14 @@ export class ExerciseReadService {
                 .slice(pagination.skip, pagination.limit)
         );
     }
+
+    async count(props: { accountId: string; trainingId: string }): Promise<number> {
+        if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
+            throw new TrainingNotRelatedToAccountException();
+        }
+        this.db.load();
+        return Promise.resolve(
+            Object.values(this.db.data).filter((exercise) => exercise.trainingId === props.trainingId).length
+        );
+    }
 }
