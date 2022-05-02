@@ -1,3 +1,5 @@
+import { IPaginationQueryDto } from '../shared';
+
 export type ICreateTrainingDto = {
     name: string;
     startedAt?: Date;
@@ -21,7 +23,14 @@ export type IExerciseDto = {
     trainingId: string;
 };
 
-export type IAddExerciseToTrainingDto = {
+export type ICreateExerciseInTrainingDto = {
     name: string;
     trainingId: string;
 };
+
+export type IRemoveExerciseFromTrainingDto = {
+    exerciseId: string;
+    trainingId: string;
+};
+
+export type IPaginationExercisesQueryDto = IPaginationQueryDto & { trainingId: string };
