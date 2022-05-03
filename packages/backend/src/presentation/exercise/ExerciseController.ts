@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { TrainingFacade } from '../../modules/training/TrainingFacade';
-import { CreateExerciseInTrainingDto, RemoveExerciseFromTrainingDto } from './dtos';
+import { CreateExerciseInTrainingDto } from './dtos';
 import { CurrentAccount } from '../../modules/auth/CurrentAccount';
 import { TAccount } from '../../modules/accounts/application/AccountFacade';
 import { IExerciseDto, IPaginationDto, IPaginationExercisesQueryDto } from '@trening-tracker/shared';
@@ -20,12 +20,15 @@ export class ExerciseController {
         return { id: await this.trainingFacade.createExerciseInTraining({ ...dto, accountId: account.id }) };
     }
 
-    @Delete()
+    @Delete(':trainingId/:exerciseId')
     async removeExerciseFromTraining(
         @CurrentAccount() account: TAccount,
-        @Body() dto: RemoveExerciseFromTrainingDto
+        @Param('trainingId') trainingId: string,
+        @Param('exerciseId') exerciseId: string
     ): Promise<MutableActionResultDto> {
-        return { id: await this.trainingFacade.removeExerciseFromTraining({ ...dto, accountId: account.id }) };
+        return {
+            id: await this.trainingFacade.removeExerciseFromTraining({ trainingId, exerciseId, accountId: account.id }),
+        };
     }
 
     @Get()
