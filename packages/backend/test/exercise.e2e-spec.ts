@@ -1,6 +1,6 @@
 import { createTestingApp } from './common';
 import { UserSession } from './common/UserSessionFactory';
-import { ICreateExerciseInTrainingDto, IRemoveExerciseFromTrainingDto } from '@trening-tracker/shared';
+import { ICreateExerciseInTrainingDto } from '@trening-tracker/shared';
 
 const data = {};
 jest.mock('../src/shared/FSWrapper.ts', () => {
@@ -90,13 +90,7 @@ describe('AppController (e2e)', () => {
                 trainingId,
             } as ICreateExerciseInTrainingDto);
 
-        await session
-            .delete('/exercise')
-            .set(session.authorizationHeaders())
-            .send({
-                exerciseId,
-                trainingId,
-            } as IRemoveExerciseFromTrainingDto);
+        await session.delete(`/exercise/${trainingId}/${exerciseId}`).set(session.authorizationHeaders()).send();
 
         await session
             .get('/exercise')
