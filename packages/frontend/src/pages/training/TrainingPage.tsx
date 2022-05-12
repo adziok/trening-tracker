@@ -1,24 +1,19 @@
-import React from 'react';
-import { Accordion, ActionIcon, Badge, Card, Group, LoadingOverlay, Text, ThemeIcon } from '@mantine/core';
-import { ChevronLeft, Palette } from 'tabler-icons-react';
+import React, { useState } from 'react';
+import { Accordion, ActionIcon, Badge, Divider, Group, LoadingOverlay, Paper, Text } from '@mantine/core';
+import { ChevronLeft, Plus, Repeat, Trash } from 'tabler-icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components';
-import { useTraining } from '../../hooks';
-
-function AccordionLabel({ label }: { label: string }) {
-    return (
-        <Group noWrap>
-            <div className={'ml-3'}>
-                <Text weight={300}>{label}</Text>
-            </div>
-        </Group>
-    );
-}
+import { removeTrainingExerciseMutation, useTraining, useTrainingExercisesList } from '../../hooks';
+import { FloatingButton } from '../../components/FloatingButton';
+import { CreateTrainingExerciseModal } from './CreateTrainingExerciseModal';
 
 export function TrainingPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const { data, isLoading, error } = useTraining(id!);
+    const { data: trainingExercises, refetch } = useTrainingExercisesList(id!);
+    const { mutate: removeTrainingExercise } = removeTrainingExerciseMutation();
+    const [createTrainingExerciseDialogOpened, setCreateTrainingExerciseDialogOpened] = useState(false);
 
     return (
         <PageWrapper noSidePaddings={true}>
@@ -31,35 +26,73 @@ export function TrainingPage() {
                 <Text size={'xl'}>{data?.name}</Text>
             </Group>
 
-            {/*<Divider my="sm" clas sName={'m-0'} />*/}
-            {new Array(6).fill('').map(() => (
-                <Card shadow="sm" p="sm" className={'m-4'}>
-                    <Group position="apart" style={{ marginBottom: 5, marginTop: 10 }}>
-                        <Text weight={500}>Norway Fjord Adventures</Text>
-                        <Badge color="violet" variant="light">
-                            Series: 3
-                        </Badge>
-                    </Group>
-                </Card>
-            ))}
-
-            <Accordion multiple={true} disableIconRotation={true} className={'mt-3'}>
-                {new Array(6).fill('').map(() => (
+            <Accordion iconPosition="right" offsetIcon={false} multiple>
+                {trainingExercises?.nodes.map((trainingExercise) => (
                     <Accordion.Item
-                        icon={
-                            <ThemeIcon color="violet" variant="light">
-                                <Palette size={18} />
-                            </ThemeIcon>
+                        key={trainingExercise.id}
+                        label={
+                            <Group position="apart">
+                                <Text weight={500} className={'flex-1'}>
+                                    {trainingExercise.name}
+                                </Text>
+                                <Badge color="violet" variant="light" size={'xs'}>
+                                    <Text weight={500} size={'xs'}>
+                                        <Repeat size={12} /> {3}
+                                    </Text>
+                                </Badge>
+                                <ActionIcon
+                                    size={'lg'}
+                                    color={'violet'}
+                                    onClick={() =>
+                                        removeTrainingExercise(
+                                            { trainingId: id!, exerciseId: trainingExercise.id },
+                                            {
+                                                onSuccess: () => {
+                                                    return refetch();
+                                                },
+                                            }
+                                        )
+                                    }
+                                >
+                                    <Trash size={16} />
+                                </ActionIcon>
+                            </Group>
                         }
-                        label={<AccordionLabel label={'Bench Press'} />}
-                        classNames={{
-                            control: 'py-2',
-                        }}
                     >
-                        Colors, fonts, shadows an d many other parts are customizable to fit your design needs
+                        <Divider />
+                        <Paper shadow="xs" p="xs">
+                            <Text>Paper is the most basic ui component</Text>
+                            <Text>
+                                Use it to create cards, dropdowns,modals and other components that require background
+                                with shadow
+                            </Text>
+                        </Paper>
                     </Accordion.Item>
                 ))}
             </Accordion>
+
+            <FloatingButton>
+                <ActionIcon
+                    variant={'light'}
+                    className={'opacity-70 shadow-lg'}
+                    color={'violet'}
+                    size={60}
+                    radius={100}
+                    onClick={() => setCreateTrainingExerciseDialogOpened(true)}
+                >
+                    <Plus size={50} />
+                </ActionIcon>
+            </FloatingButton>
+
+            <CreateTrainingExerciseModal
+                trainingId={id!}
+                opened={createTrainingExerciseDialogOpened}
+                onClose={() => setCreateTrainingExerciseDialogOpened(false)}
+                onSave={() => {
+                    void refetch();
+                }}
+            />
+
             {!isLoading && error && 'ERROR OCCURRED '}
         </PageWrapper>
     );

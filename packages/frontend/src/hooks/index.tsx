@@ -1,8 +1,11 @@
 import { useMutation, useQuery } from 'react-query';
 import {
     IBaseServerError,
+    ICreateExerciseInTrainingDto,
     ICreateTrainingDto,
+    IExerciseDto,
     IPaginationDto,
+    IRemoveExerciseFromTrainingDto,
     ITrainingDto,
     IUpdateTrainingDto,
     MutableActionResultDto,
@@ -30,3 +33,25 @@ export const useTraining = (trainingId: string) => {
         fetchBackendWithAuthorization.get<ITrainingDto>(`training/${trainingId}`)
     );
 };
+
+export const useTrainingExercisesList = (trainingId: string, limit = 10, skip = 0) => {
+    return useQuery<IPaginationDto<IExerciseDto>, { error: string }>(['trainingExercises', trainingId], () =>
+        fetchBackendWithAuthorization.get<IPaginationDto<IExerciseDto>>('exercise', {
+            queryParams: { limit, skip, trainingId },
+        })
+    );
+};
+
+export const createTrainingExerciseMutation = () =>
+    useMutation<MutableActionResultDto, IBaseServerError, ICreateExerciseInTrainingDto>((body) => {
+        return fetchBackendWithAuthorization.post<MutableActionResultDto, ICreateExerciseInTrainingDto>('exercise', {
+            body,
+        });
+    });
+
+export const removeTrainingExerciseMutation = () =>
+    useMutation<MutableActionResultDto, IBaseServerError, IRemoveExerciseFromTrainingDto>((body) => {
+        return fetchBackendWithAuthorization.delete<MutableActionResultDto>(
+            `exercise/${body.trainingId}/${body.exerciseId}`
+        );
+    });
