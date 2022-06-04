@@ -3,7 +3,8 @@ import { TUniqueEntityId, UniqueEntityId } from '../../../shared/classes/UniqueE
 import { ExerciseRepository } from './repositories/ExerciseRepository';
 import { ExerciseEntity } from './enitites/ExerciseEntity';
 import { TrainingService } from './TrainingService';
-import { BaseError } from '../../../shared/classes/Result';
+import { ICreateExerciseInTraining, IRemoveExerciseFromTraining } from '../interfaces';
+import { TrainingNotRelatedToAccountException } from './errors';
 
 @Injectable()
 export class ExerciseService {
@@ -12,9 +13,9 @@ export class ExerciseService {
         private readonly trainingService: TrainingService
     ) {}
 
-    async createExercise(props: { accountId: string; name: string; trainingId: string }): Promise<TUniqueEntityId> {
+    async createExerciseInTraining(props: ICreateExerciseInTraining): Promise<TUniqueEntityId> {
         if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
-            throw new BaseError('Training with given id not exists or is not related  to your account');
+            throw new TrainingNotRelatedToAccountException();
         }
         const exerciseResult = ExerciseEntity.create({
             name: props.name,
@@ -25,5 +26,13 @@ export class ExerciseService {
 
         await this.exerciseRepository.save(exerciseResult.value);
         return exerciseResult.value.id.toValue();
+    }
+
+    async removeExerciseFromTraining(props: IRemoveExerciseFromTraining): Promise<TUniqueEntityId> {
+        if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
+            throw new TrainingNotRelatedToAccountException();
+        }
+        await this.exerciseRepository.removeById(UniqueEntityId.recreate(props.exerciseId));
+        return props.exerciseId;
     }
 }

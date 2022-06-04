@@ -1,16 +1,39 @@
 import React, { ReactNode } from 'react';
+import { Container, Stack } from '@mantine/core';
+import { PageHeader } from './PageHeader';
 
 type PageWrapperProps = {
+    header?: ReactNode;
     children: ReactNode;
     className?: string;
+    footer?: ReactNode;
+    noSidePaddings?: boolean;
 };
 
-export const PageWrapper = ({ children, className = '' }: PageWrapperProps) => {
+const ScrollableContent = ({ children, noSidePaddings }: PageWrapperProps) => {
     return (
-        <div
-            className={`flex flex-col justify-center items-center h-screen w-screen overflow-y-auto overflow-x-hidden -z-50 ${className}`}
+        <Container
+            className={`h-full box-border w-full overflow-x-hidden overflow-y-auto`}
+            fluid={true}
+            px={noSidePaddings ? 0 : 'xs'}
         >
             {children}
-        </div>
+        </Container>
+    );
+};
+
+export const PageWrapper = ({
+    children,
+    className = '',
+    header = <PageHeader />,
+    footer,
+    noSidePaddings = false,
+}: PageWrapperProps) => {
+    return (
+        <Stack className={'h-screen overflow-hidden bg-gray-50'} align={'stretch'} spacing={0}>
+            {header}
+            <ScrollableContent noSidePaddings={noSidePaddings}>{children}</ScrollableContent>
+            {footer && footer}
+        </Stack>
     );
 };

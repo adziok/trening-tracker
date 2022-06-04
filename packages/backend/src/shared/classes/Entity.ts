@@ -18,7 +18,7 @@ export class Entity<T> {
     }
 
     static createInstance() {
-        return new Entity({}, null);
+        return new this({}, null);
     }
 
     public equals(object?: Entity<T>): boolean {

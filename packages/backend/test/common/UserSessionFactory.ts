@@ -10,19 +10,19 @@ export class UserSessionFactory {
 
     async create(data: { username: string; email: string }): Promise<UserSession> {
         const accountApi = this.app.get(AccountFacade);
+        const providerId = randomUUID();
         const account = await accountApi.createAccount({
             ...data,
             providerType: 'cognito',
-            providerId: randomUUID(),
+            providerId,
         });
         if (account.hasError()) {
             throw new Error('Can not create UserSession');
         }
-        const accountId = account.isOk() && account.value;
         const httpAgent = agent(this.app.getHttpServer());
 
         return Object.assign(httpAgent, {
-            authorizationHeaders: () => ({ Authorization: `Bearer ${accountId}` }),
+            authorizationHeaders: () => ({ Authorization: `Bearer ${providerId}` }),
         });
     }
 }

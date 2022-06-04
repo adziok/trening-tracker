@@ -3,7 +3,7 @@ import { TrainingRepository } from './repositories/TrainingRepository';
 import { isDefined, Result, UniqueEntityId } from '../../../shared/classes';
 import { TUniqueEntityId } from '../../../shared/classes/UniqueEntityId';
 import { TrainingEntity } from './enitites/TrainingEntity';
-import { ICreateTraining } from '../interfaces';
+import { ICreateTraining, IUpdateTraining } from '../interfaces';
 
 @Injectable()
 export class TrainingService {
@@ -40,5 +40,17 @@ export class TrainingService {
             UniqueEntityId.recreate(trainingId),
             UniqueEntityId.recreate(accountId)
         ));
+    }
+
+    async updateTraining(updateTrainingData: IUpdateTraining): Promise<TUniqueEntityId> {
+        const training = await this.trainingRepository.getByIdAndAccountId(
+            UniqueEntityId.recreate(updateTrainingData.id),
+            UniqueEntityId.recreate(updateTrainingData.accountId)
+        );
+        const trainingResult = training.update(updateTrainingData);
+        if (trainingResult.hasError()) throw trainingResult.error;
+
+        await this.trainingRepository.save(trainingResult.value);
+        return trainingResult.value.id.toValue();
     }
 }

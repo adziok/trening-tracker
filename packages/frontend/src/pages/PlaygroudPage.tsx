@@ -1,21 +1,67 @@
-import React from 'react';
-import { Button, PageWrapper } from '../components';
-import { generalConfig } from '../configs/general';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Drawer, Group, LoadingOverlay, Text, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { DatePicker } from '@mantine/dates';
+import { ICreateTrainingDto } from '@trening-tracker/shared';
+import { PageWrapper } from '../components';
+import { createTrainingMutation } from '../hooks';
 
 export function PlaygroundPage() {
+    const [opened, setOpened] = useState(false);
+    const form = useForm<ICreateTrainingDto>({
+        initialValues: {
+            name: '',
+            startedAt: undefined,
+        },
+    });
+    const { mutate: createTraining, isLoading, isError, status } = createTrainingMutation();
+
+    useEffect(() => {
+        if (!isLoading && status === 'success') {
+            console.log('Success ');
+            form.reset();
+            setOpened(false);
+        }
+        if (!isLoading && isError) {
+            console.log('Error');
+        }
+    }, [isLoading]);
+
     return (
-        <PageWrapper className="bg-theme-3 bg-bg">
-            <div className="bg-mountains h-screen w-screen bg-repeat-x fixed bg-bottom z-10 bg-a-20p bg-[length:200%] sm:bg-[length:100%]">
-                {' '}
-            </div>
-            <div className="bg-clouds h-screen animate-moveRight w-screen bg-repeat-x fixed bg-bottom z-10 bg-a-30p bg-50p opacity-30">
-                {' '}
-            </div>
-            <div className="p-10 pb-32 text-theme-1 text-center text-theme-5 z-50 w-1/2">
-                <Button background={'bg-theme-2'} size={'md'} href={`${generalConfig.backendUrl!}/auth`}>
-                    Sign In
-                </Button>
-            </div>
+        <PageWrapper>
+            <Button onClick={() => setOpened(true)}>Create training</Button>
+            <Drawer position="bottom" opened={opened} withCloseButton={false} onClose={() => setOpened(false)}>
+                <Box sx={{ maxWidth: 300 }} mx="auto">
+                    <LoadingOverlay visible={isLoading} />
+                    <form onSubmit={form.onSubmit((values) => createTraining(values))}>
+                        <Text size={'xl'} className="pt-2">
+                            Create new training:
+                        </Text>
+                        <TextInput required label="Title" placeholder="Training name" {...form.getInputProps('name')} />
+                        <DatePicker
+                            required
+                            label="Training date"
+                            placeholder="Training date"
+                            defaultValue={new Date()}
+                            {...form.getInputProps('startedAt')}
+                        />
+
+                        <Group position="apart" mt="md">
+                            <Button
+                                color={'red'}
+                                variant={'light'}
+                                onClick={() => setOpened(false)}
+                                loading={isLoading}
+                            >
+                                Cancel
+                            </Button>
+                            <Button type="submit" variant={'light'} loading={isLoading}>
+                                Submit
+                            </Button>
+                        </Group>
+                    </form>
+                </Box>
+            </Drawer>
         </PageWrapper>
     );
 }
