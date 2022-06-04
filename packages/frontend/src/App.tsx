@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React, { ReactNode } from 'react';
 import logo from './logo.svg';
 import { Button } from './components/Button';
 
-const PageWrapper: FC = ({ children }) => {
+const PageWrapper = ({ children }: { children: ReactNode }) => {
     return <div className="max-w">{children}</div>;
 };
 
