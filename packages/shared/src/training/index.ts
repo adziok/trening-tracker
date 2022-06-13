@@ -26,6 +26,7 @@ export type IExerciseDto = {
 export type ICreateExerciseInTrainingDto = {
     name: string;
     trainingId: string;
+    templateId: string;
 };
 
 export type IRemoveExerciseFromTrainingDto = {
