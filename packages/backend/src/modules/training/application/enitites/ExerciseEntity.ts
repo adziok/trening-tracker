@@ -1,4 +1,4 @@
-import { Entity, ok, Result, UniqueEntityId } from '../../../../shared/classes';
+import { Entity, UniqueEntityId } from '../../../../shared/classes';
 
 export type TExerciseEntityProps = {
     trainingId: UniqueEntityId;
@@ -6,8 +6,8 @@ export type TExerciseEntityProps = {
 };
 
 export class ExerciseEntity extends Entity<TExerciseEntityProps> {
-    static create(props: TExerciseEntityProps): Result<ExerciseEntity> {
-        return ok(new ExerciseEntity(props, UniqueEntityId.generate()));
+    static create(props: TExerciseEntityProps): ExerciseEntity {
+        return new ExerciseEntity(props, UniqueEntityId.generate());
     }
 
     static recreate(props: TExerciseEntityProps, id: UniqueEntityId): ExerciseEntity {

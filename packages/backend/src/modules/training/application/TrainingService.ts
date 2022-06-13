@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TrainingRepository } from './repositories/TrainingRepository';
-import { isDefined, Result, UniqueEntityId } from '../../../shared/classes';
+import { isDefined, UniqueEntityId } from '../../../shared/classes';
 import { TUniqueEntityId } from '../../../shared/classes/UniqueEntityId';
 import { TrainingEntity } from './enitites/TrainingEntity';
 import { ICreateTraining, IUpdateTraining } from '../interfaces';
@@ -10,7 +10,7 @@ export class TrainingService {
     constructor(private readonly trainingRepository: TrainingRepository) {}
 
     async createTraining(props: ICreateTraining): Promise<TUniqueEntityId> {
-        let trainingResult: Result<TrainingEntity>;
+        let trainingResult: TrainingEntity;
         if (isDefined(props.startedAt)) {
             trainingResult = TrainingEntity.create({
                 accountId: UniqueEntityId.recreate(props.accountId),
@@ -23,10 +23,9 @@ export class TrainingService {
                 accountId: UniqueEntityId.recreate(props.accountId),
             });
         }
-        if (trainingResult.hasError()) throw trainingResult.error;
 
-        await this.trainingRepository.save(trainingResult.value);
-        return trainingResult.value.id.toValue();
+        await this.trainingRepository.save(trainingResult);
+        return trainingResult.id.toValue();
     }
 
     async isTrainingWithIdIsRelatedToAccount({
@@ -48,9 +47,8 @@ export class TrainingService {
             UniqueEntityId.recreate(updateTrainingData.accountId)
         );
         const trainingResult = training.update(updateTrainingData);
-        if (trainingResult.hasError()) throw trainingResult.error;
 
-        await this.trainingRepository.save(trainingResult.value);
-        return trainingResult.value.id.toValue();
+        await this.trainingRepository.save(trainingResult);
+        return trainingResult.id.toValue();
     }
 }

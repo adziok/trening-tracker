@@ -22,10 +22,8 @@ export class ExerciseService {
             trainingId: UniqueEntityId.recreate(props.trainingId),
         });
 
-        if (exerciseResult.hasError()) throw exerciseResult.error;
-
-        await this.exerciseRepository.save(exerciseResult.value);
-        return exerciseResult.value.id.toValue();
+        await this.exerciseRepository.save(exerciseResult);
+        return exerciseResult.id.toValue();
     }
 
     async removeExerciseFromTraining(props: IRemoveExerciseFromTraining): Promise<TUniqueEntityId> {

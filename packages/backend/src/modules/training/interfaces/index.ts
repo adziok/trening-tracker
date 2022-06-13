@@ -5,7 +5,9 @@ export type ICreateExerciseInTraining = {
     accountId: string;
     name: string;
     trainingId: string;
+    templateId: string;
 };
+
 export type IRemoveExerciseFromTraining = {
     accountId: string;
     exerciseId: string;

@@ -3,6 +3,7 @@ import { ICreateExerciseInTrainingDto, IRemoveExerciseFromTrainingDto } from '@t
 export class CreateExerciseInTrainingDto implements ICreateExerciseInTrainingDto {
     name: string;
     trainingId: string;
+    templateId: string;
 }
 
 export class RemoveExerciseFromTrainingDto implements IRemoveExerciseFromTrainingDto {

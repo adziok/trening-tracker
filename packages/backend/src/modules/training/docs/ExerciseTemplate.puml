@@ -1,0 +1,21 @@
+@startuml ExerciseTemplate
+
+/'
+    Exercise template should be object
+    which contains all required information about
+    exercise tracking. It will be copied into training object.
+'/
+class ExerciseTemplate {
+    String name
+    ExerciseProperties props
+}
+
+class ExerciseProperties {
+    String name
+    String i18n
+    Enum type
+    Boolean required
+    JSONB metadata
+}
+
+@enduml

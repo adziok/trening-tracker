@@ -32,7 +32,7 @@ class ExerciseProperty {
     }
 }
 
-export type TExerciseEntityProps = {
+export type TExerciseTemplateEntityProps = {
     id: string;
     scope: 'user' | 'system';
     name: string;
@@ -41,12 +41,12 @@ export type TExerciseEntityProps = {
     properties: TExerciseProperty[];
 };
 
-export class ExerciseEntity extends Entity<TExerciseEntityProps> {
-    static create(props: TExerciseEntityProps): Result<ExerciseEntity> {
-        return ok(new ExerciseEntity(props, UniqueEntityId.generate()));
+export class ExerciseTemplateEntity extends Entity<TExerciseTemplateEntityProps> {
+    static create(props: TExerciseTemplateEntityProps): Result<ExerciseTemplateEntity> {
+        return ok(new ExerciseTemplateEntity(props, UniqueEntityId.generate()));
     }
 
-    static recreate(props: TExerciseEntityProps, id: UniqueEntityId): ExerciseEntity {
-        return new ExerciseEntity(props, id);
+    static recreate(props: TExerciseTemplateEntityProps, id: UniqueEntityId): ExerciseTemplateEntity {
+        return new ExerciseTemplateEntity(props, id);
     }
 }
