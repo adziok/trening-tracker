@@ -1,6 +1,6 @@
 import { ExerciseEntity } from './ExerciseEntity';
 import { UniqueEntityId } from '../../../../shared/classes';
-import { ExerciseSeries } from './ExerciseSeries';
+import { ExerciseSeriesEntity } from './ExerciseSeriesEntity';
 
 describe('ExerciseEntity', () => {
     it('should create an instance of the object using factory method', () => {
@@ -17,7 +17,7 @@ describe('ExerciseEntity', () => {
     it('should add a series to the training', () => {
         const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
 
-        const series = ExerciseSeries.create({
+        const series = ExerciseSeriesEntity.create({
             reps: 10,
             weight: 50,
         });
@@ -29,7 +29,7 @@ describe('ExerciseEntity', () => {
     it('should ignore duplicates when we add series', () => {
         const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
 
-        const series = ExerciseSeries.create({
+        const series = ExerciseSeriesEntity.create({
             reps: 10,
             weight: 50,
         });
@@ -42,7 +42,7 @@ describe('ExerciseEntity', () => {
     it('should remove a series from the training ', () => {
         const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
 
-        const series = ExerciseSeries.create({
+        const series = ExerciseSeriesEntity.create({
             reps: 10,
             weight: 50,
         });
@@ -56,7 +56,7 @@ describe('ExerciseEntity', () => {
     it('should throw when trying to remove not existing series', () => {
         const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
 
-        const series = ExerciseSeries.create({
+        const series = ExerciseSeriesEntity.create({
             reps: 10,
             weight: 50,
         });
