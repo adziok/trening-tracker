@@ -26,6 +26,19 @@ describe('ExerciseEntity', () => {
         expect(instance.props.series).toHaveLength(1);
     });
 
+    it('should ignore duplicates when we add series', () => {
+        const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
+
+        const series = ExerciseSeries.create({
+            reps: 10,
+            weight: 50,
+        });
+        instance.addSeries(series);
+        instance.addSeries(series);
+
+        expect(instance.props.series).toHaveLength(1);
+    });
+
     it('should remove a series from the training ', () => {
         const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
 
@@ -38,5 +51,16 @@ describe('ExerciseEntity', () => {
         instance.removeSeries(series);
 
         expect(instance.props.series).toHaveLength(0);
+    });
+
+    it('should throw when trying to remove not existing series', () => {
+        const instance = ExerciseEntity.create({ name: 'First training', trainingId: UniqueEntityId.generate() });
+
+        const series = ExerciseSeries.create({
+            reps: 10,
+            weight: 50,
+        });
+
+        expect(() => instance.removeSeries(series)).toThrow();
     });
 });
