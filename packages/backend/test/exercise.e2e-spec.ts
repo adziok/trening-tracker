@@ -79,7 +79,7 @@ describe('AppController (e2e)', () => {
             });
     });
 
-    it.only('should add series to exercise', async () => {
+    it('should add series to exercise', async () => {
         const {
             body: { id: exerciseId },
         } = await session
@@ -101,7 +101,6 @@ describe('AppController (e2e)', () => {
             .set(session.authorizationHeaders())
             .send()
             .expect((res) => {
-                console.log(res.body);
                 expect(res.body.nodes).toEqual(
                     expect.arrayContaining([
                         expect.objectContaining({
