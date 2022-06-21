@@ -13,3 +13,9 @@ export type IRemoveExerciseFromTraining = {
     exerciseId: string;
     trainingId: string;
 };
+
+export type IAddExerciseToTraining = {
+    name: string;
+    accountId: string;
+    trainingId: string;
+};

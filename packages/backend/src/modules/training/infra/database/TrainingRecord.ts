@@ -18,6 +18,7 @@ export class TrainingRecord extends BaseRecord implements Record<keyof TTraining
     name: string;
 
     startedAt: Date;
+    exercises: unknown;
 }
 
 export class ExerciseRecord extends BaseRecord implements Record<keyof TExerciseEntityProps, unknown> {
@@ -26,4 +27,5 @@ export class ExerciseRecord extends BaseRecord implements Record<keyof TExercise
     trainingId: string;
 
     name: string;
+    series: unknown;
 }

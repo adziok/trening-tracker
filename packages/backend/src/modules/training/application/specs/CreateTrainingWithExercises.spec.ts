@@ -1,10 +1,11 @@
 import { isUUID } from '@nestjs/common/utils/is-uuid';
 import { randomUUID } from 'crypto';
 import { TrainingService } from '../TrainingService';
-import { InMemoryTrainingRepository } from '../../infra/database/InMemoryTrainingRepository';
 import { DateUtils } from '../../../../shared/classes/DateUtils';
-import { InMemoryExerciseRepository } from '../../infra/database/InMemoryExerciseRepository';
 import { ExerciseService } from '../ExerciseService';
+import { InMemoryTrainingRepository } from '../../infra/database/InMemoryTrainingRepository';
+import { InMemoryExerciseRepository } from '../../infra/database/InMemoryExerciseRepository';
+import { UniqueEntityId } from '../../../../shared/classes';
 
 describe('CreateTraining', () => {
     let trainingService: TrainingService;
@@ -38,15 +39,42 @@ describe('CreateTraining', () => {
         expect(isUUID(trainingId)).toBeTruthy();
     });
 
-    it('should create exercise', async () => {
+    it('should add exercise to training', async () => {
         const trainingId = await trainingService.createTraining({ accountId, name: 'Important training' });
-        const exerciseId = await exerciseService.createExercise({ trainingId, accountId, name: 'Dead lift' });
+
+        const exerciseId = await exerciseService.addExerciseToTraining({
+            trainingId,
+            accountId,
+            name: 'Push ups',
+        });
         expect(isUUID(exerciseId)).toBeTruthy();
     });
 
-    it('should throw when invalid trainingId is provided', async () => {
+    it('should throw when we trying add exercise to training but trainingId is invalid', async () => {
+        const invalidTrainingId = UniqueEntityId.generate();
+
         await expect(() =>
-            exerciseService.createExercise({ trainingId: '123', accountId, name: 'Dead lift' })
+            exerciseService.addExerciseToTraining({
+                trainingId: invalidTrainingId.toString(),
+                accountId,
+                name: 'Push ups',
+            })
+        ).rejects.toThrow();
+    });
+
+    it('should throw when we trying add exercise to training but trainingId is not correlated to account', async () => {
+        const differentAccountId = randomUUID();
+        const trainingId = await trainingService.createTraining({
+            accountId: differentAccountId,
+            name: 'Important training',
+        });
+
+        await expect(() =>
+            exerciseService.addExerciseToTraining({
+                trainingId,
+                accountId,
+                name: 'Push ups',
+            })
         ).rejects.toThrow();
     });
 });
