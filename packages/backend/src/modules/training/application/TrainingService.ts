@@ -16,11 +16,13 @@ export class TrainingService {
                 accountId: UniqueEntityId.recreate(props.accountId),
                 startedAt: props.startedAt,
                 name: props.name,
+                exercises: [],
             });
         } else {
             trainingResult = TrainingEntity.createStartedNow({
                 name: props.name,
                 accountId: UniqueEntityId.recreate(props.accountId),
+                exercises: [],
             });
         }
 
