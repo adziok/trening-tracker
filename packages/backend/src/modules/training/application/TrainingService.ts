@@ -34,8 +34,8 @@ export class TrainingService {
         trainingId,
         accountId,
     }: {
-        trainingId: string;
-        accountId: string;
+        trainingId: TUniqueEntityId;
+        accountId: TUniqueEntityId;
     }): Promise<boolean> {
         return !!(await this.trainingRepository.getByIdAndAccountId(
             UniqueEntityId.recreate(trainingId),
