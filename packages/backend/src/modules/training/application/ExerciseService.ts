@@ -3,7 +3,12 @@ import { TUniqueEntityId, UniqueEntityId } from '../../../shared/classes/UniqueE
 import { ExerciseRepository } from './repositories/ExerciseRepository';
 import { ExerciseEntity } from './enitites/ExerciseEntity';
 import { TrainingService } from './TrainingService';
-import { IAddExerciseToTraining, ICreateExerciseInTraining, IRemoveExerciseFromTraining } from '../interfaces';
+import {
+    IAddExerciseToTraining,
+    IAddSeriesToExercise,
+    ICreateExerciseInTraining,
+    IRemoveExerciseFromTraining,
+} from '../interfaces';
 import { TrainingNotRelatedToAccountException } from './errors';
 import { ExerciseSeriesEntity } from './enitites/ExerciseSeriesEntity';
 
@@ -49,13 +54,7 @@ export class ExerciseService {
         return exerciseResult.id.toValue();
     }
 
-    async addSeriesToExercise(props: {
-        accountId: string;
-        reps: number;
-        exerciseId: string;
-        trainingId: string;
-        weight: number;
-    }): Promise<TUniqueEntityId> {
+    async addSeriesToExercise(props: IAddSeriesToExercise): Promise<TUniqueEntityId> {
         if (!(await this.trainingService.isTrainingWithIdIsRelatedToAccount(props))) {
             throw new TrainingNotRelatedToAccountException();
         }

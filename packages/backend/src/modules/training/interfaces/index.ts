@@ -19,3 +19,11 @@ export type IAddExerciseToTraining = {
     accountId: string;
     trainingId: string;
 };
+
+export type IAddSeriesToExercise = {
+    accountId: string;
+    reps: number;
+    exerciseId: string;
+    trainingId: string;
+    weight: number;
+};
