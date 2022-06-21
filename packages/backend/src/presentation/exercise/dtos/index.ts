@@ -1,4 +1,8 @@
-import { ICreateExerciseInTrainingDto, IRemoveExerciseFromTrainingDto } from '@trening-tracker/shared';
+import {
+    IAddSeriesToExerciseDto,
+    ICreateExerciseInTrainingDto,
+    IRemoveExerciseFromTrainingDto,
+} from '@trening-tracker/shared';
 
 export class CreateExerciseInTrainingDto implements ICreateExerciseInTrainingDto {
     name: string;
@@ -9,4 +13,9 @@ export class CreateExerciseInTrainingDto implements ICreateExerciseInTrainingDto
 export class RemoveExerciseFromTrainingDto implements IRemoveExerciseFromTrainingDto {
     exerciseId: string;
     trainingId: string;
+}
+
+export class AddSeriesInExerciseDto implements IAddSeriesToExerciseDto {
+    reps: number;
+    weight: number;
 }
