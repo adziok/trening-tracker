@@ -2,7 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { IExerciseDto, IPaginationDto, IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
 import { ExerciseService } from './application/ExerciseService';
 import { TrainingService } from './application/TrainingService';
-import { ICreateExerciseInTraining, ICreateTraining, IRemoveExerciseFromTraining, IUpdateTraining } from './interfaces';
+import {
+    IAddSeriesToExercise,
+    ICreateExerciseInTraining,
+    ICreateTraining,
+    IRemoveExerciseFromTraining,
+    IUpdateTraining,
+} from './interfaces';
 import { TrainingReadService } from './TrainingReadService';
 import { ExerciseReadService } from './ExerciseReadService';
 
@@ -30,6 +36,14 @@ export class TrainingFacade {
     removeExerciseFromTraining(exercise: IRemoveExerciseFromTraining): Promise<string> {
         return this.exerciseService.removeExerciseFromTraining(exercise);
     }
+
+    addSeriesToExercise(series: IAddSeriesToExercise): Promise<string> {
+        return this.exerciseService.addSeriesToExercise(series);
+    }
+
+    // removeSeriesToExercise(exercise: IRemoveExerciseFromTraining): Promise<string> {
+    //     return this.exerciseService.removeExerciseFromTraining(exercise);
+    // }
 
     getAccountTrainingById(accountId: string, id: string): Promise<ITrainingDto> {
         return this.trainingReadService.getAccountTrainingById(accountId, id);
