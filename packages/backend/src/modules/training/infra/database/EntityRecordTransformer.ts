@@ -32,4 +32,25 @@ export class EntityRecordTransformer<TEntity extends Entity<Record<string, unkno
         const { id, ...props } = plainToInstance(this.record, recordPlain);
         return Object.assign(this.entity.createInstance(), { _id: id, props });
     }
+
+    static entityToRecord<TEntity extends Entity<Record<string, unknown>>, TRecord extends BaseRecord>(
+        entity: TEntity,
+        record: Constructable<TRecord>
+    ) {
+        const recordInstance = Object.assign(
+            new record(),
+            { ...entity.props, id: entity.id },
+            { ignoreDecorators: true }
+        );
+        return instanceToPlain(recordInstance) as TRecord;
+    }
+
+    static recordToEntity<TEntity extends Entity<Record<string, unknown>>, TRecord extends BaseRecord>(
+        recordPlain: TRecord,
+        record: Constructable<TRecord>,
+        entity: ConstructableEntity<TEntity>
+    ): TEntity {
+        const { id, ...props } = plainToInstance(record, recordPlain);
+        return Object.assign(entity.createInstance(), { _id: id, props });
+    }
 }
