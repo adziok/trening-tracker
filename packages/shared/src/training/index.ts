@@ -29,6 +29,11 @@ export type ICreateExerciseInTrainingDto = {
     templateId: string;
 };
 
+export type IAddSeriesToExerciseDto = {
+    reps: number;
+    weight: number;
+};
+
 export type IRemoveExerciseFromTrainingDto = {
     exerciseId: string;
     trainingId: string;
