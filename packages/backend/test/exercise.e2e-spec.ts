@@ -79,6 +79,47 @@ describe('AppController (e2e)', () => {
             });
     });
 
+    it.only('should add series to exercise', async () => {
+        const {
+            body: { id: exerciseId },
+        } = await session
+            .post('/exercise')
+            .set(session.authorizationHeaders())
+            .send({
+                name: 'Bench Press',
+                trainingId,
+            } as ICreateExerciseInTrainingDto);
+
+        await session.post(`/exercise/${trainingId}/${exerciseId}`).set(session.authorizationHeaders()).send({
+            weight: 10,
+            reps: 10,
+        });
+
+        await session
+            .get('/exercise')
+            .query({ trainingId })
+            .set(session.authorizationHeaders())
+            .send()
+            .expect((res) => {
+                console.log(res.body);
+                expect(res.body.nodes).toEqual(
+                    expect.arrayContaining([
+                        expect.objectContaining({
+                            id: expect.any(String),
+                            name: 'Bench Press',
+                            series: expect.arrayContaining([
+                                expect.objectContaining({
+                                    id: expect.any(String),
+                                    reps: 10,
+                                    weight: 10,
+                                }),
+                            ]),
+                        }),
+                    ])
+                );
+            });
+    });
+
     it('should remove exercise from training', async () => {
         const {
             body: { id: exerciseId },
