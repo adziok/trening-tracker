@@ -34,6 +34,7 @@ export class ExerciseRecord extends BaseRecord implements Record<keyof TExercise
     trainingId: string;
 
     name: string;
+    // TODO: Add typings
     @Transform(
         ({ value }: { value: ExerciseSeriesRecord[] }) => {
             return value.map((v) =>
@@ -48,5 +49,5 @@ export class ExerciseRecord extends BaseRecord implements Record<keyof TExercise
         },
         { toPlainOnly: true }
     )
-    series: unknown[];
+    series: any[];
 }
