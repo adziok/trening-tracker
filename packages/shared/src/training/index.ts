@@ -17,10 +17,17 @@ export type ITrainingDto = {
     startedAt: Date;
 };
 
+export type ISeriesDto = {
+    id: string;
+    reps: number;
+    weight: number;
+};
+
 export type IExerciseDto = {
     id: string;
     name: string;
     trainingId: string;
+    series: ISeriesDto[];
 };
 
 export type ICreateExerciseInTrainingDto = {
