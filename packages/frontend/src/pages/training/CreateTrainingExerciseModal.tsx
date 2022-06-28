@@ -26,6 +26,7 @@ export function CreateTrainingExerciseModal({
         initialValues: {
             name: '',
             trainingId,
+            templateId: '',
         },
     });
     const { mutate: createTrainingExercise, isLoading, isError, status, error } = createTrainingExerciseMutation();
