@@ -39,6 +39,8 @@ export type ICreateExerciseInTrainingDto = {
 export type IAddSeriesToExerciseDto = {
     reps: number;
     weight: number;
+    trainingId: string;
+    exerciseId: string;
 };
 
 export type IRemoveExerciseFromTrainingDto = {
