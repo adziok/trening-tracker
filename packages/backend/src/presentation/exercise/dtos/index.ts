@@ -15,7 +15,7 @@ export class RemoveExerciseFromTrainingDto implements IRemoveExerciseFromTrainin
     trainingId: string;
 }
 
-export class AddSeriesInExerciseDto implements IAddSeriesToExerciseDto {
+export class AddSeriesInExerciseDto implements Omit<IAddSeriesToExerciseDto, 'exerciseId' | 'trainingId'> {
     reps: number;
     weight: number;
 }
