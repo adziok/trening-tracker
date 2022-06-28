@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 import {
+    IAddSeriesToExerciseDto,
     IBaseServerError,
     ICreateExerciseInTrainingDto,
     ICreateTrainingDto,
@@ -53,5 +54,15 @@ export const removeTrainingExerciseMutation = () =>
     useMutation<MutableActionResultDto, IBaseServerError, IRemoveExerciseFromTrainingDto>((body) => {
         return fetchBackendWithAuthorization.delete<MutableActionResultDto>(
             `exercise/${body.trainingId}/${body.exerciseId}`
+        );
+    });
+
+export const createTrainingExerciseSeriesMutation = () =>
+    useMutation<MutableActionResultDto, IBaseServerError, IAddSeriesToExerciseDto>((body) => {
+        return fetchBackendWithAuthorization.post<MutableActionResultDto, IAddSeriesToExerciseDto>(
+            `exercise/${body.trainingId}/${body.exerciseId}`,
+            {
+                body,
+            }
         );
     });
