@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Accordion, ActionIcon, Badge, Divider, Group, LoadingOverlay, Paper, Text } from '@mantine/core';
+import { Accordion, ActionIcon, Badge, Button, Divider, Group, LoadingOverlay, Paper, Text } from '@mantine/core';
 import { ChevronLeft, Plus, Repeat, Trash } from 'tabler-icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components';
 import { removeTrainingExerciseMutation, useTraining, useTrainingExercisesList } from '../../hooks';
 import { FloatingButton } from '../../components/FloatingButton';
 import { CreateTrainingExerciseModal } from './CreateTrainingExerciseModal';
+import { CreateTrainingExerciseSeriesModal } from './CreateTrainingExerciseSeriesModal';
 
 export function TrainingPage() {
     const navigate = useNavigate();
@@ -14,6 +15,8 @@ export function TrainingPage() {
     const { data: trainingExercises, refetch } = useTrainingExercisesList(id!);
     const { mutate: removeTrainingExercise } = removeTrainingExerciseMutation();
     const [createTrainingExerciseDialogOpened, setCreateTrainingExerciseDialogOpened] = useState(false);
+    const [addToExerciseId, setAddToExerciseId] = useState<string | null>(null);
+    const [createTrainingExerciseSeriesDialogOpened, setCreateTrainingExerciseSeriesDialogOpened] = useState(false);
 
     return (
         <PageWrapper noSidePaddings={true}>
@@ -61,11 +64,26 @@ export function TrainingPage() {
                     >
                         <Divider />
                         <Paper shadow="xs" p="xs">
+                            {trainingExercise.series?.map((series) => (
+                                <div>{JSON.stringify(series)}</div>
+                            ))}
                             <Text>Paper is the most basic ui component</Text>
                             <Text>
                                 Use it to create cards, dropdowns,modals and other components that require background
                                 with shadow
                             </Text>
+
+                            <Button
+                                variant={'white'}
+                                fullWidth
+                                onClick={() => (
+                                    setAddToExerciseId(trainingExercise.id),
+                                    setCreateTrainingExerciseSeriesDialogOpened(true)
+                                )}
+                                rightIcon={<Plus size={18} />}
+                            >
+                                Add Series
+                            </Button>
                         </Paper>
                     </Accordion.Item>
                 ))}
@@ -92,6 +110,18 @@ export function TrainingPage() {
                     void refetch();
                 }}
             />
+
+            {addToExerciseId && (
+                <CreateTrainingExerciseSeriesModal
+                    trainingId={id!}
+                    exerciseId={addToExerciseId}
+                    opened={createTrainingExerciseSeriesDialogOpened}
+                    onClose={() => (setAddToExerciseId(null), setCreateTrainingExerciseSeriesDialogOpened(false))}
+                    onSave={() => {
+                        void refetch();
+                    }}
+                />
+            )}
 
             {!isLoading && error && 'ERROR OCCURRED '}
         </PageWrapper>
