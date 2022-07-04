@@ -40,7 +40,7 @@ export function TrainingPage() {
                                 </Text>
                                 <Badge color="violet" variant="light" size={'xs'}>
                                     <Text weight={500} size={'xs'}>
-                                        <Repeat size={12} /> {3}
+                                        <Repeat size={12} /> {trainingExercise.series.length}
                                     </Text>
                                 </Badge>
                                 <ActionIcon
@@ -65,14 +65,15 @@ export function TrainingPage() {
                         <Divider />
                         <Paper shadow="xs" p="xs">
                             {trainingExercise.series?.map((series) => (
-                                <div>{JSON.stringify(series)}</div>
+                                // <div>{JSON.stringify(series)}</div>
+                                <Group position="apart" spacing={0}>
+                                    <Badge>Weight: {series.weight} kg</Badge>
+                                    <Badge>Reps: {series.reps}</Badge>
+                                    <ActionIcon size={'lg'} color={'violet'} onClick={() => console.log('remfing')}>
+                                        <Trash size={16} />
+                                    </ActionIcon>
+                                </Group>
                             ))}
-                            <Text>Paper is the most basic ui component</Text>
-                            <Text>
-                                Use it to create cards, dropdowns,modals and other components that require background
-                                with shadow
-                            </Text>
-
                             <Button
                                 variant={'white'}
                                 fullWidth
