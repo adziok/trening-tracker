@@ -8,7 +8,7 @@ import {
     IAddSeriesToExercise,
     ICreateExerciseInTraining,
     IRemoveExerciseFromTraining,
-} from '../interfaces';
+} from './interfaces';
 import { TrainingNotRelatedToAccountException } from './errors';
 import { ExerciseSeriesEntity } from './enitites/ExerciseSeriesEntity';
 

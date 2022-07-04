@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
-import { TrainingRecord } from './infra/database/TrainingRecord';
-import { LocalFileDatabase } from '../../shared/LocalFileDatabase';
+import { TrainingRecord } from '../infra/database/TrainingRecord';
+import { LocalFileDatabase } from '../../../shared/LocalFileDatabase';
 
 @Injectable()
 export class TrainingReadService {

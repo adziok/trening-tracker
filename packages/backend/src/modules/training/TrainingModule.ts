@@ -1,30 +1,22 @@
 import { Module } from '@nestjs/common';
 import { ExerciseService } from './application/ExerciseService';
 import { TrainingService } from './application/TrainingService';
-import { ExerciseRepository } from './application/repositories/ExerciseRepository';
-import { TrainingRepository } from './application/repositories/TrainingRepository';
-import { TrainingFacade } from './TrainingFacade';
-import { TrainingReadService } from './TrainingReadService';
-import { LocalMemoryTrainingRepository } from './infra/database/LocalMemoryTrainingRepository';
-import { LocalMemoryExerciseRepository } from './infra/database/LocalMemoryExerciseRepository';
-import { ExerciseReadService } from './ExerciseReadService';
+import { TrainingFacade } from './application/TrainingFacade';
+import { TrainingReadService } from './read/TrainingReadService';
+import { ExerciseReadService } from './read/ExerciseReadService';
+import { TrainingReadFacade } from './read/TrainingReadFacade';
+import { TrainingInfraModule } from './infra/TrainingInfraModule';
 
 @Module({
+    imports: [TrainingInfraModule],
     providers: [
         ExerciseService,
         TrainingService,
-        {
-            provide: ExerciseRepository,
-            useClass: LocalMemoryExerciseRepository,
-        },
-        {
-            provide: TrainingRepository,
-            useClass: LocalMemoryTrainingRepository,
-        },
         TrainingFacade,
         TrainingReadService,
         ExerciseReadService,
+        TrainingReadFacade,
     ],
-    exports: [TrainingFacade],
+    exports: [TrainingFacade, TrainingReadFacade],
 })
 export class TrainingModule {}

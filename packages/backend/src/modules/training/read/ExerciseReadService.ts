@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { IExerciseDto, IPaginationQueryDto } from '@trening-tracker/shared';
-import { ExerciseRecord } from './infra/database/TrainingRecord';
-import { LocalFileDatabase } from '../../shared/LocalFileDatabase';
-import { TrainingService } from './application/TrainingService';
-import { TrainingNotRelatedToAccountException } from './application/errors';
+import { ExerciseRecord } from '../infra/database/TrainingRecord';
+import { LocalFileDatabase } from '../../../shared/LocalFileDatabase';
+import { TrainingService } from '../application/TrainingService';
+import { TrainingNotRelatedToAccountException } from '../application/errors';
 
 @Injectable()
 export class ExerciseReadService {

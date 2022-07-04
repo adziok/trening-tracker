@@ -1,49 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { IExerciseDto, IPaginationDto, IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
-import { ExerciseService } from './application/ExerciseService';
-import { TrainingService } from './application/TrainingService';
-import {
-    IAddSeriesToExercise,
-    ICreateExerciseInTraining,
-    ICreateTraining,
-    IRemoveExerciseFromTraining,
-    IUpdateTraining,
-} from './interfaces';
 import { TrainingReadService } from './TrainingReadService';
 import { ExerciseReadService } from './ExerciseReadService';
 
 @Injectable()
-export class TrainingFacade {
+export class TrainingReadFacade {
     constructor(
-        private readonly exerciseService: ExerciseService,
-        private readonly trainingService: TrainingService,
         private readonly trainingReadService: TrainingReadService,
         private readonly exerciseReadService: ExerciseReadService
     ) {}
-
-    createTraining(trainingDto: ICreateTraining): Promise<string> {
-        return this.trainingService.createTraining(trainingDto);
-    }
-
-    updateTraining(trainingDto: IUpdateTraining): Promise<string> {
-        return this.trainingService.updateTraining(trainingDto);
-    }
-
-    createExerciseInTraining(exercise: ICreateExerciseInTraining): Promise<string> {
-        return this.exerciseService.createExerciseInTraining(exercise);
-    }
-
-    removeExerciseFromTraining(exercise: IRemoveExerciseFromTraining): Promise<string> {
-        return this.exerciseService.removeExerciseFromTraining(exercise);
-    }
-
-    addSeriesToExercise(series: IAddSeriesToExercise): Promise<string> {
-        return this.exerciseService.addSeriesToExercise(series);
-    }
-
-    // removeSeriesToExercise(exercise: IRemoveExerciseFromTraining): Promise<string> {
-    //     return this.exerciseService.removeExerciseFromTraining(exercise);
-    // }
 
     getAccountTrainingById(accountId: string, id: string): Promise<ITrainingDto> {
         return this.trainingReadService.getAccountTrainingById(accountId, id);
