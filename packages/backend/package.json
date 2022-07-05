@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "build:open-api-spec": "nest start --entryFile generate-open-api",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
@@ -18,7 +19,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "yarn test:generate-sdk && jest --config ./test/jest-e2e.json",
+    "test:build-test-sdk": "oazapfts open-api.json test/temp/sdk.ts",
+    "test:generate-sdk": "yarn build:open-api-spec && yarn test:build-test-sdk"
   },
   "dependencies": {
     "@nestjs/common": "^8.4.6",
@@ -38,7 +41,7 @@
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^8.2.6",
+    "@nestjs/cli": "^8.2.8",
     "@nestjs/schematics": "^8.0.11",
     "@nestjs/testing": "^8.4.6",
     "@trening-tracker/shared": "^0.1.0",
