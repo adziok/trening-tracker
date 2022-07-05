@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { agent } from 'supertest';
 import { AccountFacade } from '../../src/modules/accounts/application/AccountFacade';
 import * as api from '../temp/sdk';
+import { Headers, Response } from 'node-fetch';
 
 export type UserSession = typeof api;
 
