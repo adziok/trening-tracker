@@ -1,12 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { TrainingFacade } from '../../modules/training/application/TrainingFacade';
-import { AddSeriesInExerciseDto, CreateExerciseInTrainingDto } from './dtos';
 import { CurrentAccount } from '../../modules/auth/CurrentAccount';
 import { TAccount } from '../../modules/accounts/application/AccountFacade';
-import { IExerciseDto, IPaginationDto, IPaginationExercisesQueryDto } from '@trening-tracker/shared';
 import { Authorized } from '../../modules/auth';
 import { MutableActionResultDto } from '../common/MutableActionResultDto';
 import { TrainingReadFacade } from '../../modules/training/read/TrainingReadFacade';
+import { CreateExerciseInTrainingDto } from './dtos/CreateExerciseInTrainingDto';
+import { AddSeriesInExerciseDto } from './dtos/AddSeriesInExerciseDto';
+import { PaginationExercisesQueryDto } from './dtos/PaginationExercisesQueryDto';
+import { ExerciseListDto } from './dtos/ExercoseListDto';
 
 @Authorized()
 @Controller('exercise')
@@ -53,10 +55,7 @@ export class ExerciseController {
     }
 
     @Get()
-    list(
-        @CurrentAccount() account: TAccount,
-        @Query() data: IPaginationExercisesQueryDto
-    ): Promise<IPaginationDto<IExerciseDto>> {
+    list(@CurrentAccount() account: TAccount, @Query() data: PaginationExercisesQueryDto): Promise<ExerciseListDto> {
         return this.trainingReadFacade.listTrainingExercises(
             { accountId: account.id, trainingId: data.trainingId },
             { skip: data.skip || 0, limit: data.limit || 10 }

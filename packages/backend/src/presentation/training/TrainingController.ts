@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { IPaginationDto, IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
+import { IPaginationQueryDto, ITrainingDto } from '@trening-tracker/shared';
 import { TrainingFacade } from '../../modules/training/application/TrainingFacade';
 import { Authorized } from '../../modules/auth';
 import { MutableActionResultDto } from '../common/MutableActionResultDto';
@@ -8,6 +8,7 @@ import { CurrentAccount } from '../../modules/auth/CurrentAccount';
 import { TAccount } from '../../modules/accounts/application/AccountFacade';
 import { UpdateTrainingDto } from './dtos/UpdateTrainingDto';
 import { TrainingReadFacade } from '../../modules/training/read/TrainingReadFacade';
+import { TrainingListDto } from './dtos/TrainingListDto';
 
 @Authorized()
 @Controller('training')
@@ -34,10 +35,7 @@ export class TrainingController {
     }
 
     @Get()
-    list(
-        @CurrentAccount() account: TAccount,
-        @Query() data: IPaginationQueryDto
-    ): Promise<IPaginationDto<ITrainingDto>> {
+    list(@CurrentAccount() account: TAccount, @Query() data: IPaginationQueryDto): Promise<TrainingListDto> {
         return this.trainingReadFacade.listTrainings(account.id, { skip: data.skip || 0, limit: data.limit || 10 });
     }
 
