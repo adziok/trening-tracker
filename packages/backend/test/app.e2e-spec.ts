@@ -1,6 +1,5 @@
 import { createTestingApp } from './common';
 import { UserSession } from './common/UserSessionFactory';
-import { Response } from 'supertest';
 
 describe('AppController (e2e)', () => {
     let session: UserSession;
@@ -11,11 +10,7 @@ describe('AppController (e2e)', () => {
     });
 
     it('/accounts/me (GET)', async () => {
-        await session
-            .get('/accounts/me')
-            .set(session.authorizationHeaders())
-            .expect((res: Response) => {
-                expect(res.body.id).toBeDefined();
-            });
+        const { data } = await session.accountsControllerMe();
+        expect(data.id).toBeDefined();
     });
 });

@@ -1,6 +1,5 @@
 import { createTestingApp } from './common';
 import { UserSession } from './common/UserSessionFactory';
-import { Response } from 'supertest';
 
 const data = {};
 jest.mock('../src/shared/FSWrapper.ts', () => {
@@ -28,105 +27,80 @@ describe('AppController (e2e)', () => {
     });
 
     it('should create training without providing start time', async () => {
-        await session
-            .post('/training')
-            .set(session.authorizationHeaders())
-            .send({
-                name: 'First training',
-            })
-            .expect((res: Response) => {
-                expect(res.body.id).toBeDefined();
-            });
+        const { data } = await session.trainingControllerCreateTraining({
+            name: 'First training',
+        });
+        expect(data.id).toBeDefined();
     });
 
     it('should create training with providing start time', async () => {
-        await session
-            .post('/training')
-            .set(session.authorizationHeaders())
-            .send({
-                name: 'First training',
-                startedAt: new Date(),
-            })
-            .expect((res: Response) => {
-                expect(res.body.id).toBeDefined();
-            });
+        const { data } = await session.trainingControllerCreateTraining({
+            name: 'First training',
+            startedAt: new Date().toDateString(),
+        });
+        expect(data.id).toBeDefined();
     });
 
     it('should update training name', async () => {
         const {
-            body: { id },
-        }: { body: { id: string } } = await session.post('/training').set(session.authorizationHeaders()).send({
+            data: { id },
+        } = await session.trainingControllerCreateTraining({
             name: 'First training',
-            startedAt: new Date(),
+            startedAt: new Date().toDateString(),
         });
-        const { body } = await session.put('/training').set(session.authorizationHeaders()).send({
+        await session.trainingControllerUpdateTraining({
             id,
             name: 'First training updated',
         });
 
-        await session
-            .get(`/training/${id}`)
-            .set(session.authorizationHeaders())
-            .send()
-            .expect((res) => {
-                expect(res.body).toEqual(
-                    expect.objectContaining({
-                        id: id,
-                        name: 'First training updated',
-                    })
-                );
-            });
+        const { data } = await session.trainingControllerGet(id);
+        expect(data).toEqual(
+            expect.objectContaining({
+                id: id,
+                name: 'First training updated',
+            })
+        );
     });
 
     it('should list trainings', async () => {
-        await session.post('/training').set(session.authorizationHeaders()).send({
+        await session.trainingControllerCreateTraining({
             name: 'First training',
-            startedAt: new Date(),
+            startedAt: new Date().toDateString(),
         });
-        await session.post('/training').set(session.authorizationHeaders()).send({
+        await session.trainingControllerCreateTraining({
             name: 'Second training',
-            startedAt: new Date(),
+            startedAt: new Date().toDateString(),
         });
 
-        await session
-            .get('/training')
-            .set(session.authorizationHeaders())
-            .send()
-            .expect((res) => {
-                expect(res.body.nodes).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({
-                            id: expect.any(String),
-                            name: 'First training',
-                        }),
-                        expect.objectContaining({
-                            id: expect.any(String),
-                            name: 'Second training',
-                        }),
-                    ])
-                );
-            });
+        const { data } = await session.trainingControllerList();
+        expect(data.nodes).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.any(String),
+                    name: 'First training',
+                }),
+                expect.objectContaining({
+                    id: expect.any(String),
+                    name: 'Second training',
+                }),
+            ])
+        );
     });
 
     it('should get training by id', async () => {
         const {
-            body: { id },
-        }: { body: { id: string } } = await session.post('/training').set(session.authorizationHeaders()).send({
+            data: { id },
+        } = await session.trainingControllerCreateTraining({
             name: 'First training',
-            startedAt: new Date(),
+            startedAt: new Date().toDateString(),
         });
 
-        await session
-            .get(`/training/${id}`)
-            .set(session.authorizationHeaders())
-            .send()
-            .expect((res) => {
-                expect(res.body).toEqual(
-                    expect.objectContaining({
-                        id: id,
-                        name: 'First training',
-                    })
-                );
-            });
+        const { data } = await session.trainingControllerGet(id);
+        expect(data).toEqual(
+            expect.objectContaining({
+                id: id,
+                name: 'First training',
+            })
+        );
     });
 });
